@@ -27,6 +27,21 @@ app.get('/api', async (req, res) => {
     }
 });
 
+// Récupérer tous les cours
+app.get('/api/cours', async (req, res) => {
+    try {
+        const [cours] = await db.query('SELECT id, titre FROM cours ORDER BY id');
+
+        res.json(cours);
+    } catch (erreur) {
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la récupération des cours']
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);
 });

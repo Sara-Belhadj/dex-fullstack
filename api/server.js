@@ -7,6 +7,12 @@ const db = require('./database');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Stocker les sessions des enseignants
+const sessions = new Map();
+
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+
 app.use(cors());
 app.use(express.json());
 
@@ -263,6 +269,72 @@ app.put('/api/travaux/:id/disponibilites/:matricule', async (req, res) => {
     }
 });
 
+//Connexion d'un enseignant
+app.post('/api/connexion', async (req, res) => {
+    try {
+        const { identifiant, motDePasse} = req.body || {};
+
+        if (typeof identifiant !== 'string' ||
+            !identifiant.trim() ||
+            typeof motDePasse !== 'string' ||
+            !motDePasse) {
+            return res.status(400).json({
+                erreurs: ['Identifiant et mot de passe requis']
+            });
+        }
+        const [utilisateurs] = await db.query(
+            'SELECT * FROM utilisateurs WHERE identifiant = ?',
+            [identifiant.trim()]
+        );
+        if (utilisateurs.length === 0) {
+            return res.status(401).json({
+                erreurs: ['Identifiant ou mot de passe incorrect']
+            });
+        }
+        const utilisateur = utilisateurs[0];
+        const motDePasseValide = await bcrypt.compare(
+            motDePasse,
+            utilisateur.mot_de_passe_hache
+        );
+        if (!motDePasseValide) {
+            return res.status(401).json({
+                erreurs: ['Identifiant ou mot de passe incorrect']
+            });
+        }
+        const token = crypto.randomBytes(32).toString('hex');
+        sessions.set(token, utilisateur.id);
+
+        res.json({
+            token,
+            nom: utilisateur.nom
+        });
+
+    } catch (erreur) {
+        console.error(erreur);
+        res.status(500).json({
+            erreurs: ['Erreur lors de la connexion']
+        });
+    }
+});
+
+// Déconnexion d'un enseignant
+app.post('/api/deconnexion', (req, res) => {
+    const authorization = req.headers.authorization;
+
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+        return res.status(401).json({
+            erreurs: ['Connexion requise']
+        });
+    }
+    const token = authorization.substring(7);
+    if (!sessions.has(token)) {
+        return res.status(401).json({
+            erreurs: ['Session invalide']
+        });
+    }
+    sessions.delete(token);
+    res.status(204).send();
+});
 
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);

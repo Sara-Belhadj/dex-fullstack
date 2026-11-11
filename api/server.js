@@ -161,6 +161,109 @@ app.get('/api/travaux/:id/disponibilites', async (req, res) => {
     }
 });
 
+// Enregistrer ou modifier les disponibilités d'un étudiant
+app.put('/api/travaux/:id/disponibilites/:matricule', async (req, res) => {
+    const { id, matricule } = req.params;
+    const { nom, creneaux } = req.body || {};
+
+    // Vérifier les informations reçues
+    if (!/^[a-z0-9-]{1,30}$/.test(id) ||
+        !/^[a-zA-Z0-9]{1,20}$/.test(matricule) ||
+        typeof nom !== 'string' ||
+        !nom.trim() ||
+        nom.length > 100 ||
+        !Array.isArray(creneaux) ||
+        !creneaux.every(c => typeof c === 'string')) {
+        return res.status(400).json({
+            erreurs: ['Données invalides']
+        });
+    }
+
+    // Empêcher les créneaux en double
+    if (new Set(creneaux).size !== creneaux.length) {
+        return res.status(400).json({
+            erreurs: ['Créneaux en double']
+        });
+    }
+
+    let connexion;
+    try {
+        connexion = await db.getConnection();
+        await connexion.beginTransaction();
+
+        // Vérifier que le travail existe et est ouvert
+        const [travaux] = await connexion.query(
+            'SELECT id, ouvert FROM travaux WHERE id = ? FOR UPDATE',
+            [id]
+        );
+        if (travaux.length === 0) {
+            await connexion.rollback();
+            return res.status(404).json({
+                erreurs: ['Travail introuvable']
+            });
+        }
+        if (!travaux[0].ouvert) {
+            await connexion.rollback();
+            return res.status(409).json({
+                erreurs: ['Ce travail est fermé']
+            });
+        }
+        // Vérifier que les créneaux appartiennent au travail
+        const [creneauxExistants] = await connexion.query(
+            'SELECT id FROM creneaux WHERE travail_id = ?',
+            [id]
+        );
+        const idsValides = new Set(
+            creneauxExistants.map(c => c.id)
+        );
+
+        if (!creneaux.every(c => idsValides.has(c))) {
+            await connexion.rollback();
+            return res.status(400).json({
+                erreurs: ['Un ou plusieurs créneaux sont invalides']
+            });
+        }
+        // Supprimer les anciennes disponibilités de l'étudiant
+        await connexion.query(
+            'DELETE FROM disponibilites WHERE travail_id = ? AND matricule = ?',
+            [id, matricule]
+        );
+
+        // Enregistrer les nouvelles disponibilités
+        for (const creneauId of creneaux) {
+            await connexion.query(
+                `INSERT INTO disponibilites
+                 (travail_id, creneau_id, matricule, nom)
+                 VALUES (?, ?, ?, ?)`,
+                [id, creneauId, matricule, nom.trim()]
+            );
+        }
+        await connexion.commit();
+        res.json({
+            message: 'Disponibilités enregistrées',
+            matricule,
+            nom: nom.trim(),
+            creneaux
+        });
+
+    } catch (erreur) {
+        if (connexion) {
+            await connexion.rollback();
+        }
+
+        console.error(erreur);
+        res.status(500).json({
+            erreurs: ['Erreur lors de l’enregistrement des disponibilités']
+        });
+
+    } finally {
+        if (connexion) {
+            connexion.release();
+        }
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);
 });

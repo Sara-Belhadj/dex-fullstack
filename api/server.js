@@ -31,13 +31,26 @@ app.get('/api', async (req, res) => {
 app.get('/api/cours', async (req, res) => {
     try {
         const [cours] = await db.query('SELECT id, titre FROM cours ORDER BY id');
-
         res.json(cours);
     } catch (erreur) {
         console.error(erreur);
 
         res.status(500).json({
             erreurs: ['Erreur lors de la récupération des cours']
+        });
+    }
+});
+
+// Récupérer tous les travaux ouverts
+app.get('/api/travaux', async (req, res) => {
+    try {
+        const [travaux] = await db.query('SELECT * FROM travaux WHERE ouvert = 1 ORDER BY remise');
+        res.json(travaux);
+    } catch (erreur) {
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la récupération des travaux']
         });
     }
 });

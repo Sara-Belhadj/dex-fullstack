@@ -92,6 +92,7 @@ app.get('/api/travaux/:id', async (req, res) => {
                 erreurs: ['Travail introuvable']
             });
         }
+
         const [creneaux] = await db.query(
             'SELECT * FROM creneaux WHERE travail_id = ? ORDER BY debut',
             [id]
@@ -106,6 +107,56 @@ app.get('/api/travaux/:id', async (req, res) => {
 
         res.status(500).json({
             erreurs: ['Erreur lors de la récupération du travail']
+        });
+    }
+});
+
+// Récupérer les disponibilités d'un travail
+app.get('/api/travaux/:id/disponibilites', async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!/^[a-z0-9-]{1,30}$/.test(id)) {
+            return res.status(400).json({
+                erreurs: ['Identifiant de travail invalide']
+            });
+        }
+        const [travaux] = await db.query(
+            'SELECT id FROM travaux WHERE id = ?',
+            [id]
+        );
+        if (travaux.length === 0) {
+            return res.status(404).json({
+                erreurs: ['Travail introuvable']
+            });
+        }
+        const [creneaux] = await db.query(
+            'SELECT id, debut, fin FROM creneaux WHERE travail_id = ? ORDER BY debut',
+            [id]
+        );
+        const [disponibilites] = await db.query(
+            'SELECT creneau_id, matricule, nom FROM disponibilites WHERE travail_id = ?',
+            [id]
+        );
+        const resultat = creneaux.map(creneau => {
+            const etudiants = disponibilites
+                .filter(dispo => dispo.creneau_id === creneau.id)
+                .map(dispo => ({
+                    matricule: dispo.matricule,
+                    nom: dispo.nom
+                }));
+            return {
+                ...creneau,
+                nombre: etudiants.length,
+                etudiants: etudiants
+            };
+        });
+        res.json(resultat);
+
+    } catch (erreur) {
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la récupération des disponibilités']
         });
     }
 });

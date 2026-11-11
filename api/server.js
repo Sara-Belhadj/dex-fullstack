@@ -41,10 +41,27 @@ app.get('/api/cours', async (req, res) => {
     }
 });
 
-// Récupérer tous les travaux ouverts
+// Récupérer les travaux ouverts avec un filtre par cours
 app.get('/api/travaux', async (req, res) => {
     try {
-        const [travaux] = await db.query('SELECT * FROM travaux WHERE ouvert = 1 ORDER BY remise');
+        const cours = req.query.cours;
+
+        if (cours !== undefined && (typeof cours !== 'string' || !/^[a-zA-Z0-9-]{1,30}$/.test(cours))) {
+            return res.status(400).json({
+                erreurs: ['Identifiant de cours invalide']
+            });
+        }
+        let sql = 'SELECT * FROM travaux WHERE ouvert = 1';
+        const params = [];
+
+        if (cours) {
+            sql += ' AND cours_id = ?';
+            params.push(cours);
+        }
+        sql += ' ORDER BY remise';
+
+        const [travaux] = await db.query(sql, params);
+
         res.json(travaux);
     } catch (erreur) {
         console.error(erreur);

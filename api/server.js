@@ -72,6 +72,45 @@ app.get('/api/travaux', async (req, res) => {
     }
 });
 
+// Récupérer les détails d'un travail
+app.get('/api/travaux/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        if (!/^[a-z0-9-]{1,30}$/.test(id)) {
+            return res.status(400).json({
+                erreurs: ['Identifiant de travail invalide']
+            });
+        }
+        const [travaux] = await db.query(
+            'SELECT * FROM travaux WHERE id = ?',
+            [id]
+        );
+
+        if (travaux.length === 0) {
+            return res.status(404).json({
+                erreurs: ['Travail introuvable']
+            });
+        }
+        const [creneaux] = await db.query(
+            'SELECT * FROM creneaux WHERE travail_id = ? ORDER BY debut',
+            [id]
+        );
+        res.json({
+            ...travaux[0],
+            creneaux: creneaux
+        });
+
+    } catch (erreur) {
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la récupération du travail']
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);
 });
+

@@ -10,6 +10,36 @@ const PORT = process.env.PORT || 3000;
 // Stocker les sessions des enseignants
 const sessions = new Map();
 
+// Vérifier si un enseignant est connecté
+function verifierAuthentification(req, res, next) {
+    const authorization = req.headers.authorization;
+
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+        return res.status(401).json({
+            erreurs: ['Connexion requise']
+        });
+    }
+    const token = authorization.substring(7);
+    const utilisateurId = sessions.get(token);
+
+    if (!utilisateurId) {
+        return res.status(401).json({
+            erreurs: ['Session invalide']
+        });
+    }
+     req.utilisateurId = utilisateurId;
+    next();
+}
+
+// Tester l'authentification
+app.get('/api/admin/test', verifierAuthentification, (req, res) => {
+    res.json({
+        message: 'Accès autorisé',
+        utilisateurId: req.utilisateurId
+    });
+});
+
+
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 

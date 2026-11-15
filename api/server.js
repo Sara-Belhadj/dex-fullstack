@@ -390,6 +390,89 @@ app.get('/api/admin/travaux', verifierAuthentification, async (req, res) => {
     }
 });
 
+// Modifier un travail
+app.put('/api/travaux/:id', verifierAuthentification, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const utilisateurId = req.utilisateurId;
+
+        const { titre, description, type, disponible, remise, ouvert } = req.body || {};
+
+        if (!/^[a-z0-9-]{1,30}$/.test(id) ||
+            typeof titre !== 'string' || !titre.trim() || titre.length > 150 ||
+            typeof description !== 'string' ||
+            typeof type !== 'string' || !type.trim() || type.length > 20 ||
+            typeof disponible !== 'string' ||
+            typeof remise !== 'string' ||
+            typeof ouvert !== 'boolean') {
+            return res.status(400).json({
+                erreurs: ['Données invalides']
+            });
+        }
+
+        const dateDisponible = new Date(disponible);
+        const dateRemise = new Date(remise);
+
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(disponible) ||
+            !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(remise) ||
+            Number.isNaN(dateDisponible.getTime()) ||
+            Number.isNaN(dateRemise.getTime()) ||
+            dateRemise <= dateDisponible) {
+            return res.status(400).json({
+                erreurs: ['Dates invalides']
+            });
+        }
+
+        // Vérifier que le travail existe et appartient à l'enseignant
+        const [travaux] = await db.query(
+            `SELECT travaux.id, cours.utilisateur_id
+             FROM travaux
+             INNER JOIN cours ON travaux.cours_id = cours.id
+             WHERE travaux.id = ?`,
+            [id]
+        );
+
+        if (travaux.length === 0) {
+            return res.status(404).json({
+                erreurs: ['Travail introuvable']
+            });
+        }
+
+        if (travaux[0].utilisateur_id !== utilisateurId) {
+            return res.status(403).json({
+                erreurs: ['Accès interdit']
+            });
+        }
+
+        await db.query(
+            `UPDATE travaux
+             SET titre = ?, description = ?, type = ?,
+                 disponible = ?, remise = ?, ouvert = ?
+             WHERE id = ?`,
+            [
+                titre.trim(),
+                description,
+                type.trim(),
+                disponible,
+                remise,
+                ouvert,
+                id
+            ]
+        );
+
+        res.json({
+            message: 'Travail modifié avec succès'
+        });
+
+    } catch (erreur) {
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la modification du travail']
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);
 });

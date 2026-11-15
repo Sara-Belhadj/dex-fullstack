@@ -366,6 +366,30 @@ app.post('/api/deconnexion', (req, res) => {
     res.status(204).send();
 });
 
+// Récupérer les travaux de l'enseignant connecté
+app.get('/api/admin/travaux', verifierAuthentification, async (req, res) => {
+    try {
+        const utilisateurId = req.utilisateurId;
+
+        const [travaux] = await db.query(
+            `SELECT travaux.*
+             FROM travaux
+             INNER JOIN cours ON travaux.cours_id = cours.id
+             WHERE cours.utilisateur_id = ?
+             ORDER BY travaux.remise`,
+            [utilisateurId]
+        );
+        res.json(travaux);
+
+    } catch (erreur) {
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la récupération des travaux']
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);
 });

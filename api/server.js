@@ -473,6 +473,92 @@ app.put('/api/travaux/:id', verifierAuthentification, async (req, res) => {
     }
 });
 
+// Ajouter un créneau à un travail
+app.post('/api/travaux/:id/creneaux', verifierAuthentification, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const utilisateurId = req.utilisateurId;
+        const { debut, fin } = req.body || {};
+
+        if (!/^[a-z0-9-]{1,30}$/.test(id) ||
+            typeof debut !== 'string' ||
+            typeof fin !== 'string' ||
+            !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(debut) ||
+            !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(fin)) {
+            return res.status(400).json({
+                erreurs: ['Données invalides']
+            });
+        }
+
+        // Vérifier que la date de fin est après le début
+        const debutDate = new Date(debut.replace(' ', 'T'));
+        const finDate = new Date(fin.replace(' ', 'T'));
+
+        if (Number.isNaN(debutDate.getTime()) ||
+            Number.isNaN(finDate.getTime()) ||
+            finDate <= debutDate) {
+            return res.status(400).json({
+                erreurs: ['Dates invalides']
+            });
+        }
+
+        // Vérifier que le travail existe et appartient à l'enseignant
+        const [travaux] = await db.query(
+            `SELECT travaux.id, cours.utilisateur_id
+             FROM travaux
+             INNER JOIN cours ON travaux.cours_id = cours.id
+             WHERE travaux.id = ?`,
+            [id]
+        );
+
+        if (travaux.length === 0) {
+            return res.status(404).json({
+                erreurs: ['Travail introuvable']
+            });
+        }
+
+        if (travaux[0].utilisateur_id !== utilisateurId) {
+            return res.status(403).json({
+                erreurs: ['Accès interdit']
+            });
+        }
+
+        // Trouver le prochain numéro de créneau disponible
+        const [creneaux] = await db.query(
+            'SELECT id FROM creneaux WHERE travail_id = ?',
+            [id]
+        );
+
+        const numeros = creneaux
+            .map(c => {
+                const correspondance = c.id.match(/-(\d+)$/);
+                return correspondance ? Number(correspondance[1]) : 0;
+            });
+
+        const prochainNumero = Math.max(0, ...numeros) + 1;
+        const creneauId = `${id}-${String(prochainNumero).padStart(2, '0')}`;
+
+        await db.query(
+            'INSERT INTO creneaux (id, travail_id, debut, fin) VALUES (?, ?, ?, ?)',
+            [creneauId, id, debut, fin]
+        );
+
+        res.status(201).json({
+            id: creneauId,
+            travail_id: id,
+            debut,
+            fin
+        });
+
+    } catch (erreur) {
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la création du créneau']
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);
 });

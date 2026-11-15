@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 // Stocker les sessions des enseignants
 const sessions = new Map();
 
-// Vérifier si un enseignant est connecté
+// Vérifier l'authentification d'un enseignant
 function verifierAuthentification(req, res, next) {
     const authorization = req.headers.authorization;
 
@@ -19,15 +19,23 @@ function verifierAuthentification(req, res, next) {
             erreurs: ['Connexion requise']
         });
     }
-    const token = authorization.substring(7);
-    const utilisateurId = sessions.get(token);
 
-    if (!utilisateurId) {
+    const token = authorization.substring(7);
+    const session = sessions.get(token);
+
+    if (!session) {
         return res.status(401).json({
             erreurs: ['Session invalide']
         });
     }
-     req.utilisateurId = utilisateurId;
+    if (Date.now() >= session.expiration) {
+        sessions.delete(token);
+
+        return res.status(401).json({
+            erreurs: ['Session expirée']
+        });
+    }
+    req.utilisateurId = session.utilisateurId;
     next();
 }
 
@@ -332,7 +340,10 @@ app.post('/api/connexion', async (req, res) => {
             });
         }
         const token = crypto.randomBytes(32).toString('hex');
-        sessions.set(token, utilisateur.id);
+        sessions.set(token, {
+            utilisateurId: utilisateur.id,
+            expiration: Date.now() + 2 * 60 * 60 * 1000
+        });
 
         res.json({
             token,

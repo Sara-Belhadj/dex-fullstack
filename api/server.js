@@ -629,6 +629,97 @@ app.put('/api/creneaux/:id', verifierAuthentification, async (req, res) => {
     }
 });
 
+// Supprimer un créneau
+app.delete('/api/creneaux/:id', verifierAuthentification, async (req, res) => {
+    const id = req.params.id;
+    const utilisateurId = req.utilisateurId;
+    const { confirmer } = req.body || {};
+
+    if (!/^[a-z0-9-]{1,30}$/.test(id)) {
+        return res.status(400).json({
+            erreurs: ['Identifiant de créneau invalide']
+        });
+    }
+
+    let connexion;
+
+    try {
+        connexion = await db.getConnection();
+        await connexion.beginTransaction();
+
+        // Vérifier que le créneau existe et appartient à l'enseignant
+        const [creneaux] = await connexion.query(
+            `SELECT creneaux.id, cours.utilisateur_id
+             FROM creneaux
+             INNER JOIN travaux ON creneaux.travail_id = travaux.id
+             INNER JOIN cours ON travaux.cours_id = cours.id
+             WHERE creneaux.id = ?
+             FOR UPDATE`,
+            [id]
+        );
+
+        if (creneaux.length === 0) {
+            await connexion.rollback();
+
+            return res.status(404).json({
+                erreurs: ['Créneau introuvable']
+            });
+        }
+
+        if (creneaux[0].utilisateur_id !== utilisateurId) {
+            await connexion.rollback();
+
+            return res.status(403).json({
+                erreurs: ['Accès interdit']
+            });
+        }
+
+        // Compter les disponibilités associées au créneau
+        const [resultat] = await connexion.query(
+            'SELECT COUNT(*) AS nombre FROM disponibilites WHERE creneau_id = ?',
+            [id]
+        );
+
+        const nombre = resultat[0].nombre;
+
+        // Demander une confirmation si des étudiants sont inscrits
+        if (nombre > 0 && confirmer !== true) {
+            await connexion.rollback();
+
+            return res.status(409).json({
+                erreurs: ['Confirmation requise pour supprimer ce créneau'],
+                nombre
+            });
+        }
+
+        // Supprimer le créneau
+        await connexion.query(
+            'DELETE FROM creneaux WHERE id = ?',
+            [id]
+        );
+
+        await connexion.commit();
+
+        res.status(204).send();
+
+    } catch (erreur) {
+        if (connexion) {
+            await connexion.rollback();
+        }
+
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la suppression du créneau']
+        });
+
+    } finally {
+        if (connexion) {
+            connexion.release();
+        }
+    }
+});
+
 
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);

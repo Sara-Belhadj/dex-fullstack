@@ -559,6 +559,77 @@ app.post('/api/travaux/:id/creneaux', verifierAuthentification, async (req, res)
     }
 });
 
+// Modifier un créneau
+app.put('/api/creneaux/:id', verifierAuthentification, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const utilisateurId = req.utilisateurId;
+        const { debut, fin } = req.body || {};
+
+        // Vérifier les informations reçues
+        if (!/^[a-z0-9-]{1,30}$/.test(id) ||
+            typeof debut !== 'string' ||
+            typeof fin !== 'string' ||
+            !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(debut) ||
+            !/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(fin)) {
+            return res.status(400).json({
+                erreurs: ['Données invalides']
+            });
+        }
+
+        const dateDebut = new Date(debut.replace(' ', 'T'));
+        const dateFin = new Date(fin.replace(' ', 'T'));
+
+        if (Number.isNaN(dateDebut.getTime()) ||
+            Number.isNaN(dateFin.getTime()) ||
+            dateFin <= dateDebut) {
+            return res.status(400).json({
+                erreurs: ['Dates invalides']
+            });
+        }
+
+        // Vérifier que le créneau existe et appartient à l'enseignant
+        const [creneaux] = await db.query(
+            `SELECT creneaux.id, cours.utilisateur_id
+             FROM creneaux
+             INNER JOIN travaux ON creneaux.travail_id = travaux.id
+             INNER JOIN cours ON travaux.cours_id = cours.id
+             WHERE creneaux.id = ?`,
+            [id]
+        );
+
+        if (creneaux.length === 0) {
+            return res.status(404).json({
+                erreurs: ['Créneau introuvable']
+            });
+        }
+
+        if (creneaux[0].utilisateur_id !== utilisateurId) {
+            return res.status(403).json({
+                erreurs: ['Accès interdit']
+            });
+        }
+
+        // Modifier le créneau
+        await db.query(
+            'UPDATE creneaux SET debut = ?, fin = ? WHERE id = ?',
+            [debut, fin, id]
+        );
+
+        res.json({
+            message: 'Créneau modifié avec succès'
+        });
+
+    } catch (erreur) {
+        console.error(erreur);
+
+        res.status(500).json({
+            erreurs: ['Erreur lors de la modification du créneau']
+        });
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);
 });

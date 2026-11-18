@@ -60,6 +60,21 @@ $pageTitle = "Détails du travail - Dex";
                         </article>
                     </div>
                 </div>
+
+                <div class="availability-form">
+                    <h3>Mes disponibilités</h3>
+                    <p>Identifiez-vous pour indiquer vos disponibilités.</p>
+
+                    <div class="form-group">
+                        <label for="matricule">Matricule</label>
+                        <input id="matricule" type="text" placeholder="Votre matricule" maxlength="20"  autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom">Nom complet</label>
+                        <input id="nom" type="text" placeholder="Votre nom complet" maxlength="100" autocomplete="name">
+                    </div>
+                </div>
             </section>
 
         </div>

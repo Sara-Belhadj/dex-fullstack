@@ -87,6 +87,7 @@ $pageTitle = "Accueil - Dex";
     <footer>
         <p>Dex - Gestion des disponibilités</p>
     </footer>
-
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
 </body>
 </html>

@@ -710,7 +710,6 @@ app.delete('/api/creneaux/:id', verifierAuthentification, async (req, res) => {
         );
 
         await connexion.commit();
-
         res.status(204).send();
 
     } catch (erreur) {
@@ -719,7 +718,6 @@ app.delete('/api/creneaux/:id', verifierAuthentification, async (req, res) => {
         }
 
         console.error(erreur);
-
         res.status(500).json({
             erreurs: ['Erreur lors de la suppression du créneau']
         });
@@ -731,6 +729,27 @@ app.delete('/api/creneaux/:id', verifierAuthentification, async (req, res) => {
     }
 });
 
+async function enregistrerDisponibilites(id, matricule, nom, creneaux) {
+    const response = await fetch(
+`${API_BASE_URL}/travaux/${encodeURIComponent(id)}/disponibilites/${encodeURIComponent(matricule)}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nom: nom,
+                creneaux: creneaux
+            })
+        }
+    );
+    const resultat = await response.json();
+    if (!response.ok) {
+        throw new Error(resultat.erreurs?.[0] || "Impossible d'enregistrer les disponibilités."
+        );
+    }
+    return resultat;
+}
 
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}/api`);

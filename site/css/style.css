@@ -100,6 +100,57 @@ footer {
     font-size: 13px;
 }
 
+/* Homepage hero */
+
+.hero {
+    text-align: center;
+    padding: 70px 0 90px;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.hero-title {
+    max-width: 950px;
+    margin: 32px auto 24px;
+    font-size: clamp(38px, 5.5vw, 72px);
+    font-weight: 750;
+    line-height: 1.08;
+    letter-spacing: -0.055em;
+}
+
+.hero-description {
+    max-width: 580px;
+    margin: 0 auto;
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.works-section {
+    padding-top: 24px;
+}
+
+.section-heading {
+    margin-bottom: 32px;
+}
+
+.section-heading h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.section-heading p {
+    margin: 0;
+}
+
 @media (max-width: 600px) {
     main {
         padding: 56px 24px;

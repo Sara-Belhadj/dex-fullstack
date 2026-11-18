@@ -377,9 +377,9 @@ footer {
     transform: translateY(-7px);
     background: linear-gradient(
         165deg,
-        #f7f7f7 45%,
-        #e6ddff 75%,
-        #f6c9a4 100%
+        #f7f7f7 35%,
+        #e9d9d4 70%,
+        #b98b80 100%
     );
     box-shadow: 0 18px 35px rgba(0, 0, 0, 0.09);
 }

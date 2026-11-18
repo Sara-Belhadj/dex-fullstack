@@ -17,3 +17,13 @@ async function getTravail(id) {
 
     return await response.json();
 }
+
+async function getDisponibilites(id) {
+    const response = await fetch(`${API_BASE_URL}/travaux/${encodeURIComponent(id)}/disponibilites`);
+
+    if (!response.ok) {
+        throw new Error("Impossible de récupérer les créneaux.");
+    }
+
+    return await response.json();
+}

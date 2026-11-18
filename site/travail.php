@@ -46,6 +46,20 @@ $pageTitle = "Détails du travail - Dex";
                 <h2>{{ travail.titre }}</h2>
                 <p>{{ travail.description }}</p>
                 <span class="assignment-type">Type : {{ travail.type }}</span>
+
+                <div class="slots-section">
+                    <h3>Créneaux proposés</h3>
+                    <p v-if="creneaux.length === 0">Aucun créneau disponible pour ce travail.</p>
+
+                    <div v-else class="slots-grid">
+                        <article class="slot-card" v-for="creneau in creneaux" :key="creneau.id">
+                            <span class="slot-date">{{ formaterDate(creneau.debut) }}</span>
+                            <h4>{{ formaterHeure(creneau.debut) }} – {{ formaterHeure(creneau.fin) }}</h4>
+                            <p>{{ creneau.nombre }} étudiant(s) inscrit(s)</p>
+
+                        </article>
+                    </div>
+                </div>
             </section>
 
         </div>

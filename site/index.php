@@ -46,48 +46,32 @@ $pageTitle = "Accueil - Dex";
             </div>
 
             <div id="app">
-                <div class="works-grid">
+                <article class="work-card">
+                    <div class="work-card-content">
+                        <span class="course-badge">WEB 2</span>
+                        <h3>Travail pratique 1</h3>
+                        <p>Consultez les créneaux et indiquez vos disponibilités.</p>
+                        <span class="work-card-link">Voir le travail ↗</span>
+                    </div>
+                </article>
 
-                    <article class="work-card">
-                        <div class="work-card-visual visual-blue">
-                            <span class="visual-symbol">01</span>
-                        </div>
+                <article class="work-card">
+                    <div class="work-card-content">
+                        <span class="course-badge">BASES DE DONNÉES</span>
+                        <h3>Laboratoire 2</h3>
+                        <p>Découvrez les détails et les horaires proposés.</p>
+                        <span class="work-card-link">Voir le travail ↗</span>
+                    </div>
+                </article>
 
-                        <div class="work-card-content">
-                            <span class="course-badge">WEB 2</span>
-                            <h3>Travail pratique 1</h3>
-                            <p>Consultez les créneaux et indiquez vos disponibilités.</p>
-                            <span class="work-card-link">Voir le travail →</span>
-                        </div>
-                    </article>
-
-                    <article class="work-card">
-                        <div class="work-card-visual visual-purple">
-                            <span class="visual-symbol">02</span>
-                        </div>
-
-                        <div class="work-card-content">
-                            <span class="course-badge">BASES DE DONNÉES</span>
-                            <h3>Laboratoire 2</h3>
-                            <p>Découvrez les détails et les créneaux disponibles.</p>
-                            <span class="work-card-link">Voir le travail →</span>
-                        </div>
-                    </article>
-
-                    <article class="work-card">
-                        <div class="work-card-visual visual-peach">
-                            <span class="visual-symbol">03</span>
-                        </div>
-
-                        <div class="work-card-content">
-                            <span class="course-badge">PROJET FINAL</span>
-                            <h3>Présentation du prototype</h3>
-                            <p>Préparez votre présentation et consultez les horaires.</p>
-                            <span class="work-card-link">Voir le travail →</span>
-                        </div>
-                    </article>
-
-                </div>
+                <article class="work-card">
+                    <div class="work-card-content">
+                        <span class="course-badge">PROJET FINAL</span>
+                        <h3>Présentation du prototype</h3>
+                        <p>Préparez votre présentation et choisissez un créneau.</p>
+                        <span class="work-card-link">Voir le travail ↗</span>
+                    </div>
+                </article>
             </div>
         </section>
     </main>

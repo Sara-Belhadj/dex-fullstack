@@ -87,7 +87,9 @@ $pageTitle = "Accueil - Dex";
     <footer>
         <p>Dex - Gestion des disponibilités</p>
     </footer>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script src="js/config.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

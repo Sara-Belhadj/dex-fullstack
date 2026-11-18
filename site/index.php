@@ -22,12 +22,28 @@ $pageTitle = "Accueil - Dex";
     </header>
 
     <main>
-        <h2>Travaux disponibles</h2>
-        <p>Consultez les travaux et indiquez vos disponibilités.</p>
+        <section class="hero">
+            <span class="hero-badge">ESPACE ÉTUDIANT</span>
 
-        <div id="app">
-            <!-- Vue.js affichera les travaux ici -->
-        </div>
+            <h2 class="hero-title">
+                Organisez vos travaux.<br>
+                Simplifiez vos disponibilités.
+            </h2>
+
+            <p class="hero-description">
+                Retrouvez vos travaux, consultez les créneaux proposés
+                et indiquez vos disponibilités en quelques clics.
+            </p>
+        </section>
+
+        <section class="works-section">
+            <div class="section-heading">
+                <h2>Travaux disponibles</h2>
+                <p>Consultez les travaux de vos cours.</p>
+            </div>
+
+            <div id="app"></div>
+        </section>
     </main>
 
     <footer>

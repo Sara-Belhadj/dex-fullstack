@@ -12,6 +12,7 @@ $pageTitle = "Accueil - Dex";
 </head>
 <body>
 
+    <div class="hero-wrapper">
     <header>
         <h1>Dex</h1>
 
@@ -21,7 +22,6 @@ $pageTitle = "Accueil - Dex";
         </nav>
     </header>
 
-    <main>
         <section class="hero">
             <span class="hero-badge">ESPACE ÉTUDIANT</span>
 
@@ -36,7 +36,10 @@ $pageTitle = "Accueil - Dex";
             </p>
         </section>
 
-        <section class="works-section">
+        </div> <!-- Fin hero-wrapper -->
+
+        <main>
+            <section class="works-section">
             <div class="section-heading">
                 <div>
                     <span class="section-label">VOTRE ESPACE</span>

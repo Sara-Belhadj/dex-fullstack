@@ -1,72 +1,100 @@
-/* Palette de couleurs */
 :root {
-    --bg-primary: #101010;
-    --bg-secondary: #191919;
-    --bg-card: #24221f;
-
-    --text-primary: #f5f0e8;
-    --text-secondary: #aaa39a;
-
-    --accent: #c8a77b;
-    --border: #34312d;
+    --background: #f5f5f7;
+    --surface: #ffffff;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --accent: #007aff;
+    --border: #e5e5e7;
 }
 
-/* Styles généraux */
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: var(--background);
     color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Navigation */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 40px;
-    background-color: var(--bg-primary);
+    padding: 24px 6%;
+    background: rgba(255, 255, 255, 0.92);
     border-bottom: 1px solid var(--border);
 }
 
 header h1 {
     margin: 0;
-    color: var(--accent);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
 }
 
 nav {
     display: flex;
-    gap: 24px;
+    align-items: center;
+    gap: 32px;
 }
 
 nav a {
     color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
     text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 nav a:hover {
     color: var(--accent);
 }
 
-/* Contenu */
 main {
-    max-width: 1100px;
-    min-height: 70vh;
-    margin: 50px auto;
-    padding: 24px;
+    max-width: 1120px;
+    min-height: 75vh;
+    margin: 0 auto;
+    padding: 80px 32px;
+}
+
+h1, h2, h3 {
+    letter-spacing: -0.04em;
 }
 
 h2 {
-    color: var(--text-primary);
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 650;
+    line-height: 1.15;
+    margin: 0 0 20px;
 }
 
-/* Pied de page */
-footer {
-    text-align: center;
-    padding: 24px;
+p {
     color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+footer {
+    padding: 32px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 20px 24px;
+    }
+
+    nav {
+        gap: 16px;
+    }
+
+    main {
+        padding: 56px 24px;
+    }
 }

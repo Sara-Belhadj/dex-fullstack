@@ -73,7 +73,7 @@ main {
     max-width: 1120px;
     min-height: 75vh;
     margin: 0 auto;
-    padding: 64px 24px 100px;
+    padding: 40px 24px 70px;
 }
 
 h1, h2, h3 {
@@ -104,7 +104,7 @@ footer {
 
 .hero {
     text-align: center;
-    padding: 70px 0 90px;
+    padding: 40px 0 55px;
 }
 
 .hero-badge {
@@ -119,19 +119,19 @@ footer {
 }
 
 .hero-title {
-    max-width: 950px;
-    margin: 32px auto 24px;
-    font-size: clamp(38px, 5.5vw, 72px);
+    max-width: 850px;
+    margin: 24px auto 18px;
+    font-size: clamp(32px, 4vw, 52px);
     font-weight: 750;
-    line-height: 1.08;
+    line-height: 1.12;
     letter-spacing: -0.055em;
 }
 
 .hero-description {
-    max-width: 580px;
+    max-width: 550px;
     margin: 0 auto;
-    font-size: 17px;
-    line-height: 1.8;
+    font-size: 15px;
+    line-height: 1.7;
 }
 
 .works-section {

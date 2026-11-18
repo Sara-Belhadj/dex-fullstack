@@ -1,5 +1,5 @@
 :root {
-    --background: #eeeeef;
+    --background: #ffffff;
     --surface: #ffffff;
     --text-primary: #111111;
     --text-secondary: #777777;
@@ -70,10 +70,10 @@ nav a:last-child:hover {
 }
 
 main {
-    max-width: 1120px;
+    max-width: 1200px;
     min-height: 75vh;
     margin: 0 auto;
-    padding: 40px 24px 70px;
+    padding: 28px 24px 80px;
 }
 
 h1, h2, h3 {
@@ -103,9 +103,52 @@ footer {
 /* Homepage hero */
 
 .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 520px;
+    padding: 80px 40px;
     text-align: center;
-    padding: 40px 0 55px;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.25),
+            rgba(0, 0, 0, 0.35)
+        ),
+        url("../images/library-background.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
+.hero-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 40px;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.25),rgba(0, 0, 0, 0.40)),
+        url("../images/library-background.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-wrapper .hero {
+    min-height: calc(100vh - 90px);
+    padding: 60px 24px;
+    background: none;
+    border: none;
+    border-radius: 0;
+}
+
 
 .hero-badge {
     display: inline-block;
@@ -119,23 +162,20 @@ footer {
 }
 
 .hero-title {
-    max-width: 850px;
-    margin: 24px auto 18px;
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 750;
-    line-height: 1.12;
-    letter-spacing: -0.055em;
+    color: #ffffff;
 }
 
 .hero-description {
-    max-width: 550px;
-    margin: 0 auto;
-    font-size: 15px;
-    line-height: 1.7;
+    color: #ffffff;
+}
+
+.hero-badge {
+    background: rgba(255, 255, 255, 0.95);
+    color: #111111;
 }
 
 .works-section {
-    padding-top: 24px;
+    padding-top: 65px;
 }
 
 .section-heading {
@@ -239,6 +279,8 @@ footer {
     box-shadow: 0 18px 35px rgba(0, 0, 0, 0.09);
 }
 
+
+
 @media (min-width: 601px) and (max-width: 900px) {
     .works-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -270,5 +312,14 @@ footer {
 
     .work-card-visual {
         height: 190px;
+    }
+    .hero {
+        min-height: 380px;
+        padding: 50px 20px;
+        border-radius: 20px;
+    }
+
+    .hero-title {
+        font-size: clamp(28px, 7vw, 38px);
     }
 }

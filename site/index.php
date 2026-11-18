@@ -51,13 +51,26 @@ $pageTitle = "Accueil - Dex";
             </div>
 
             <div id="app">
+                <div class="course-filter">
+                    <label for="cours">Filtrer par cours</label>
+
+                    <select id="cours" v-model="coursSelectionne">
+                        <option value="">Tous les cours</option>
+
+                        <option v-for="cours in coursDisponibles"
+                                :key="cours"
+                                :value="cours">
+                            {{ cours }}
+                        </option>
+                    </select>
+                </div>
                 <!-- Message pendant le chargement -->
                     <p v-if="chargement" class="loading-message">Chargement des travaux...</p>
                     <!-- Message si une erreur survient -->
                     <p v-else-if="erreur" class="error-message">{{ erreur }}</p>
                 <div class="works-grid" v-else>
 
-                    <article class="work-card" v-for="travail in travaux" :key="travail.id">
+                    <article class="work-card" v-for="travail in travauxFiltres" :key="travail.id">
                         <div class="work-card-content">
                             <span class="course-badge">{{ travail.cours_id }}</span>
                             <h3>{{ travail.titre }}</h3>

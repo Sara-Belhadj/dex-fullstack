@@ -46,32 +46,34 @@ $pageTitle = "Accueil - Dex";
             </div>
 
             <div id="app">
-                <article class="work-card">
-                    <div class="work-card-content">
-                        <span class="course-badge">WEB 2</span>
-                        <h3>Travail pratique 1</h3>
-                        <p>Consultez les créneaux et indiquez vos disponibilités.</p>
-                        <span class="work-card-link">Voir le travail ↗</span>
-                    </div>
-                </article>
+                <div class="works-grid">
+                    <article class="work-card">
+                        <div class="work-card-content">
+                            <span class="course-badge">WEB 2</span>
+                            <h3>Travail pratique 1</h3>
+                            <p>Consultez les créneaux et indiquez vos disponibilités.</p>
+                            <span class="work-card-link">Voir le travail ↗</span>
+                        </div>
+                    </article>
 
-                <article class="work-card">
-                    <div class="work-card-content">
-                        <span class="course-badge">BASES DE DONNÉES</span>
-                        <h3>Laboratoire 2</h3>
-                        <p>Découvrez les détails et les horaires proposés.</p>
-                        <span class="work-card-link">Voir le travail ↗</span>
-                    </div>
-                </article>
+                    <article class="work-card">
+                        <div class="work-card-content">
+                            <span class="course-badge">BASES DE DONNÉES</span>
+                            <h3>Laboratoire 2</h3>
+                            <p>Découvrez les détails et les horaires proposés.</p>
+                            <span class="work-card-link">Voir le travail ↗</span>
+                        </div>
+                    </article>
 
-                <article class="work-card">
-                    <div class="work-card-content">
-                        <span class="course-badge">PROJET FINAL</span>
-                        <h3>Présentation du prototype</h3>
-                        <p>Préparez votre présentation et choisissez un créneau.</p>
-                        <span class="work-card-link">Voir le travail ↗</span>
-                    </div>
-                </article>
+                    <article class="work-card">
+                        <div class="work-card-content">
+                            <span class="course-badge">PROJET FINAL</span>
+                            <h3>Présentation du prototype</h3>
+                            <p>Préparez votre présentation et choisissez un créneau.</p>
+                            <span class="work-card-link">Voir le travail ↗</span>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
     </main>

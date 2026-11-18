@@ -40,7 +40,6 @@ $pageTitle = "Accueil - Dex";
         </section>
 
         </div> <!-- Fin hero-wrapper -->
-
         <main>
             <section class="works-section">
             <div class="section-heading">
@@ -52,31 +51,18 @@ $pageTitle = "Accueil - Dex";
             </div>
 
             <div id="app">
-                <div class="works-grid">
-                    <article class="work-card">
-                        <div class="work-card-content">
-                            <span class="course-badge">WEB 2</span>
-                            <h3>Travail pratique 1</h3>
-                            <p>Consultez les créneaux et indiquez vos disponibilités.</p>
-                            <span class="work-card-link">Voir le travail ↗</span>
-                        </div>
-                    </article>
+                <!-- Message pendant le chargement -->
+                    <p v-if="chargement" class="loading-message">Chargement des travaux...</p>
+                    <!-- Message si une erreur survient -->
+                    <p v-else-if="erreur" class="error-message">{{ erreur }}</p>
+                <div class="works-grid" v-else>
 
-                    <article class="work-card">
+                    <article class="work-card" v-for="travail in travaux" :key="travail.id">
                         <div class="work-card-content">
-                            <span class="course-badge">BASES DE DONNÉES</span>
-                            <h3>Laboratoire 2</h3>
-                            <p>Découvrez les détails et les horaires proposés.</p>
-                            <span class="work-card-link">Voir le travail ↗</span>
-                        </div>
-                    </article>
-
-                    <article class="work-card">
-                        <div class="work-card-content">
-                            <span class="course-badge">PROJET FINAL</span>
-                            <h3>Présentation du prototype</h3>
-                            <p>Préparez votre présentation et choisissez un créneau.</p>
-                            <span class="work-card-link">Voir le travail ↗</span>
+                            <span class="course-badge">{{ travail.cours_id }}</span>
+                            <h3>{{ travail.titre }}</h3>
+                            <p>{{ travail.description }}</p>
+                            <a class="work-card-link" :href="'travail.php?id=' + encodeURIComponent(travail.id)">Voir le travail ↗</a>
                         </div>
                     </article>
                 </div>

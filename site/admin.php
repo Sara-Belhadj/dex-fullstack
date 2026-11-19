@@ -67,7 +67,6 @@ $pageTitle = "Administration - Dex";
 
             <!-- Tableau de bord enseignant -->
             <section v-else class="admin-dashboard">
-
                 <div class="admin-heading">
                     <span class="admin-label">ESPACE ENSEIGNANT</span>
 
@@ -81,14 +80,50 @@ $pageTitle = "Administration - Dex";
                 <p v-else-if="erreurTravaux" class="form-error">{{ erreurTravaux }}</p>
                 <div v-else-if="travaux.length === 0" class="admin-empty">Aucun travail à afficher.</div>
                 <div v-else class="admin-works-grid">
-
                     <article v-for="travail in travaux" :key="travail.id" class="admin-work-card">
                         <span class="course-badge">{{ travail.cours_id }}</span>
                         <h3>{{ travail.titre }}</h3>
                         <p>{{ travail.description }}</p>
                         <span class="admin-work-status">{{ travail.ouvert ? "Ouvert" : "Fermé" }}</span>
+                    <button type="button" class="admin-edit-button" @click="selectionnerTravail(travail)">Modifier le travail</button>
                     </article>
                 </div>
+                <section v-if="travailSelectionne" class="admin-edit-section">
+                    <h3>Modifier le travail</h3>
+
+                    <form @submit.prevent="modifierTravail">
+                        <div class="form-group">
+                            <label for="edit-titre">Titre</label>
+                            <input id="edit-titre" v-model="formulaireTravail.titre" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-description">Description</label>
+                            <textarea id="edit-description" v-model="formulaireTravail.description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-type">Type</label>
+                            <input id="edit-type" v-model="formulaireTravail.type" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-disponible">Date de disponibilité</label>
+                            <input id="edit-disponible" type="date" v-model="formulaireTravail.disponible" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edit-remise">Date de remise</label>
+                            <input id="edit-remise" type="datetime-local" v-model="formulaireTravail.remise" required>
+                        </div>
+
+                        <label class="admin-open-option">
+                            <input type="checkbox" v-model="formulaireTravail.ouvert">Travail ouvert aux étudiants</label>
+                        <button type="submit" class="login-submit" :disabled="modificationEnCours">{{ modificationEnCours ? "Enregistrement..." : "Enregistrer les modifications" }}</button>
+                        <p v-if="erreurModification" class="form-error">{{ erreurModification }}</p>
+                        <p v-if="succesModification" class="form-success">{{ succesModification }}</p>
+                    </form>
+                </section>
             </section>
         </div>
     </main>

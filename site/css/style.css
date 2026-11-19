@@ -754,3 +754,54 @@ footer {
     border-radius: 16px;
     color: #777;
 }
+
+.admin-edit-button {
+    display: block;
+    margin-top: 20px;
+    padding: 12px 18px;
+    background: #171717;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.admin-edit-button:hover {
+    background: #444;
+}
+
+.admin-edit-section {
+    max-width: 650px;
+    margin-top: 48px;
+    padding: 32px;
+    background: #f7f7f7;
+    border: 1px solid #eeeeee;
+    border-radius: 20px;
+}
+
+.admin-edit-section h3 {
+    font-size: 24px;
+    margin-bottom: 28px;
+}
+
+.admin-edit-section textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 14px 16px;
+    border: 1px solid #e7e7e9;
+    border-radius: 12px;
+    background: white;
+    font: inherit;
+    resize: vertical;
+}
+
+.admin-open-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0;
+    font-size: 14px;
+}

@@ -25,14 +25,16 @@ createApp({
             modificationEnCours: false,
             erreurModification: "",
             succesModification: "",
-            succesModification: "",
             nouveauCreneau: {
                 debut: "",
                 fin: ""
             },
             ajoutCreneauEnCours: false,
             erreurCreneau: "",
-            succesCreneau: ""
+            succesCreneau: "",
+            creneaux: [],
+            chargementCreneaux: false,
+            erreurListeCreneaux: ""
         };
     },
 
@@ -154,6 +156,8 @@ createApp({
 
             this.erreurModification = "";
             this.succesModification = "";
+            this.creneaux = [];
+            this.chargerCreneaux();
         },
 
         async modifierTravail() {
@@ -239,6 +243,12 @@ createApp({
                 }
 
                 this.nouveauCreneau = { debut: "", fin: "" };
+                await this.chargerCreneaux();
+                
+                if (this.erreurListeCreneaux) {
+                    throw new Error("Créneau créé, mais impossible d'actualiser la liste.");
+                }
+
                 this.succesCreneau = "Créneau ajouté avec succès.";
 
             } catch (error) {
@@ -246,6 +256,36 @@ createApp({
             } finally {
                 this.ajoutCreneauEnCours = false;
             }
+        },
+
+        async chargerCreneaux() {
+            this.chargementCreneaux = true;
+            this.erreurListeCreneaux = "";
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/travaux/${encodeURIComponent(this.travailSelectionne)}/disponibilites`);
+                const resultat = await response.json();
+
+                if (!response.ok) {
+                    throw new Error("Impossible de charger les créneaux.");
+                }
+                this.creneaux = resultat;
+            } catch (error) {
+                this.erreurListeCreneaux = error.message;
+            } finally {
+                this.chargementCreneaux = false;
+            }
+        },
+
+        formaterDate(date) {
+            return new Intl.DateTimeFormat("fr-CA", {
+                timeZone: "America/Toronto",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }).format(new Date(date));
         }
 
     },

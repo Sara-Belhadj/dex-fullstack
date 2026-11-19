@@ -36,32 +36,15 @@ $pageTitle = "Administration - Dex";
 
                 <div class="form-group">
                     <label for="identifiant">Identifiant</label>
-                    <input
-                        id="identifiant"
-                        type="text"
-                        v-model="identifiant"
-                        placeholder="Votre identifiant"
-                        autocomplete="username"
-                        required
-                    >
+                    <input id="identifiant" type="text" v-model="identifiant" placeholder="Votre identifiant" autocomplete="username" required>
                 </div>
 
                 <div class="form-group">
                     <label for="motDePasse">Mot de passe</label>
-                    <input
-                        id="motDePasse"
-                        type="password"
-                        v-model="motDePasse"
-                        placeholder="Votre mot de passe"
-                        autocomplete="current-password"
-                        required
-                    >
+                    <input id="motDePasse" type="password" v-model="motDePasse" placeholder="Votre mot de passe" autocomplete="current-password" required>
                 </div>
 
-                <button type="submit" class="login-submit" :disabled="chargement">
-                    {{ chargement ? "Connexion..." : "Se connecter" }}
-                </button>
-
+                <button type="submit" class="login-submit" :disabled="chargement">{{ chargement ? "Connexion..." : "Se connecter" }}</button>
                 <p v-if="erreur" class="form-error">{{ erreur }}</p>
             </form>
 
@@ -69,7 +52,6 @@ $pageTitle = "Administration - Dex";
             <section v-else class="admin-dashboard">
                 <div class="admin-heading">
                     <span class="admin-label">ESPACE ENSEIGNANT</span>
-
                     <h2>Bonjour, {{ nomEnseignant }}</h2>
                     <p>Gérez vos travaux et leurs disponibilités.</p>
                     <button type="button" class="logout-button" @click="deconnexion">Se déconnecter</button>
@@ -142,6 +124,21 @@ $pageTitle = "Administration - Dex";
                         <p v-if="succesCreneau" class="form-success">{{ succesCreneau }}</p>
                     </form>
                 </section>
+                <section v-if="travailSelectionne" class="admin-slots-section">
+                    <h3>Créneaux existants</h3>
+                    <p v-if="chargementCreneaux">Chargement des créneaux...</p>
+                    <p v-else-if="erreurListeCreneaux" class="form-error">{{ erreurListeCreneaux }}</p>
+                    <p v-else-if="creneaux.length === 0">Aucun créneau pour ce travail.</p>
+
+                    <div v-else class="admin-slots-list">
+                        <article v-for="creneau in creneaux" :key="creneau.id" class="admin-slot-card">
+                            <p><strong>Début :</strong> {{ formaterDate(creneau.debut) }}</p>
+                            <p><strong>Fin :</strong> {{ formaterDate(creneau.fin) }}</p>
+                            <p><strong>Étudiants inscrits :</strong> {{ creneau.nombre }}</p>
+                        </article>
+                    </div>
+                </section>
+
             </section>
         </div>
     </main>

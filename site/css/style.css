@@ -1074,3 +1074,118 @@ body.admin-page .admin-hero-wrapper:has(.admin-hero) .admin-main {
     }
 
 }
+
+header h1 a {
+    color: inherit;
+    text-decoration: none;
+}
+
+header h1 a:hover {
+    color: inherit;
+}
+
+main > a[href="index.php"] {
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+main > a[href="index.php"]:hover {
+    color: #111;
+}
+/* Assignment page — compact layout */
+main.assignment-page {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 28px 24px 80px;
+}
+
+main.assignment-page .slots-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+    main.assignment-page .slots-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    main.assignment-page .slots-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Assignment hero */
+.hero-wrapper.assignment-banner {
+    min-height: 100vh;
+    height: auto;
+    padding: 0 40px 100px;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, .35), rgba(0, 0, 0, .5)),
+        url("../images/library-background.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-wrapper.assignment-banner .assignment-page {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 30px 24px;
+    background: transparent;
+}
+
+/* White text on library background */
+.hero-wrapper.assignment-banner .assignment-page > a,
+.hero-wrapper.assignment-banner .assignment-page h2,
+.hero-wrapper.assignment-banner .assignment-page h3,
+.hero-wrapper.assignment-banner .assignment-type {
+    color: #fff;
+}
+
+.hero-wrapper.assignment-banner .course-badge,
+.hero-wrapper.assignment-banner .assignment-details > p {
+    color: #e5e5e5;
+}
+
+/* White slot cards */
+.hero-wrapper.assignment-banner .slot-card {
+    background: #f8f8f8;
+    color: #111;
+}
+
+.hero-wrapper.assignment-banner .slot-card h4 {
+    color: #111;
+}
+
+.hero-wrapper.assignment-banner .slot-date,
+.hero-wrapper.assignment-banner .slot-card p {
+    color: #777;
+}
+
+/* Availability form on white background */
+.availability-form {
+    color: #111;
+}
+
+/* Section des disponibilités sur fond blanc */
+.availability-background {
+    width: 100%;
+    background: #ffffff;
+    padding: 80px 40px 100px;
+}
+
+.availability-background .availability-form {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    background: transparent;
+}
+
+@media (max-width: 600px) {
+    .availability-background {
+        padding: 50px 24px 70px;
+    }
+}

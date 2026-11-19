@@ -180,9 +180,9 @@ $pageTitle = "Administration - Dex";
         </main>
     </div> <!-- Fin de #app -->
 
-<footer>
-    <p>Dex - Gestion des disponibilités</p>
-</footer>
+    <footer>
+        <?php require __DIR__ . '/includes/footer.php'; ?>
+    </footer>
 
 <!-- Scripts -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>

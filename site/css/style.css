@@ -807,20 +807,22 @@ footer {
 }
 
 .admin-delete-button {
+    display: block;
     margin-top: 12px;
     padding: 12px 18px;
-    background: #fff;
-    color: #a32639;
-    border: 1px solid #e8c5cb;
+    background: #171717;
+    color: white;
+    border: none;
     border-radius: 12px;
     font: inherit;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .admin-delete-button:hover {
-    background: #fff0f2;
+    background: #444;
 }
 
 .admin-delete-button:disabled {

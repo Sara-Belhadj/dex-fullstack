@@ -135,10 +135,31 @@ $pageTitle = "Administration - Dex";
                             <p><strong>Début :</strong> {{ formaterDate(creneau.debut) }}</p>
                             <p><strong>Fin :</strong> {{ formaterDate(creneau.fin) }}</p>
                             <p><strong>Étudiants inscrits :</strong> {{ creneau.nombre }}</p>
+                            <button type="button" class="admin-edit-button" @click="selectionnerCreneau(creneau)">Modifier le créneau</button>
                         </article>
                     </div>
                 </section>
 
+                <!-- Formulaire de modification d'un créneau -->
+                <section v-if="creneauSelectionne" class="admin-slots-section">
+                    <h3>Modifier le créneau</h3>
+
+                    <form @submit.prevent="modifierCreneau">
+                        <div class="form-group">
+                            <label for="modifier-creneau-debut">Début</label>
+                            <input id="modifier-creneau-debut" type="datetime-local" v-model="formulaireCreneau.debut" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="modifier-creneau-fin">Fin</label>
+                            <input id="modifier-creneau-fin" type="datetime-local" v-model="formulaireCreneau.fin" required>
+                        </div>
+
+                        <button type="submit" class="login-submit" :disabled="true">Enregistrer les modifications</button>
+                        <p v-if="erreurModificationCreneau" class="form-error">{{ erreurModificationCreneau }}</p>
+                        <p v-if="succesModificationCreneau" class="form-success">{{ succesModificationCreneau }}</p>
+                    </form>
+                </section>
             </section>
         </div>
     </main>

@@ -34,7 +34,15 @@ createApp({
             succesCreneau: "",
             creneaux: [],
             chargementCreneaux: false,
-            erreurListeCreneaux: ""
+            erreurListeCreneaux: "",
+            creneauSelectionne: null,
+            formulaireCreneau: {
+                debut: "",
+                fin: ""
+            },
+            modificationCreneauEnCours: false,
+            erreurModificationCreneau: "",
+            succesModificationCreneau: ""
         };
     },
 
@@ -244,7 +252,7 @@ createApp({
 
                 this.nouveauCreneau = { debut: "", fin: "" };
                 await this.chargerCreneaux();
-                
+
                 if (this.erreurListeCreneaux) {
                     throw new Error("Créneau créé, mais impossible d'actualiser la liste.");
                 }
@@ -286,6 +294,33 @@ createApp({
                 hour: "2-digit",
                 minute: "2-digit"
             }).format(new Date(date));
+        },
+
+        selectionnerCreneau(creneau) {
+            this.creneauSelectionne = creneau.id;
+            const versDateLocale = (date) => {
+                const parties = new Intl.DateTimeFormat("en-CA", {
+                    timeZone: "America/Toronto",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hourCycle: "h23"
+                }).formatToParts(new Date(date));
+
+                const valeur = (type) =>
+                    parties.find(partie => partie.type === type).value;
+                return `${valeur("year")}-${valeur("month")}-${valeur("day")}T${valeur("hour")}:${valeur("minute")}`;
+            };
+
+            this.formulaireCreneau = {
+                debut: versDateLocale(creneau.debut),
+                fin: versDateLocale(creneau.fin)
+            };
+
+            this.erreurModificationCreneau = "";
+            this.succesModificationCreneau = "";
         }
 
     },

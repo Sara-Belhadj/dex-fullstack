@@ -82,6 +82,9 @@ $pageTitle = "Détails du travail - Dex";
                             <span>{{ formaterDate(creneau.debut) }} — {{ formaterHeure(creneau.debut) }} à {{ formaterHeure(creneau.fin) }}</span>
                         </label>
                     </div>
+                    <button type="button" class="availability-submit" @click="enregistrer" :disabled="enregistrement">{{ enregistrement ? "Enregistrement..." : "Enregistrer mes disponibilités" }}</button>
+                    <p v-if="messageSucces" class="form-success">{{ messageSucces }}</p>
+                    <p v-if="messageErreur" class="form-error">{{ messageErreur }}</p>
                 </div>
             </section>
 
@@ -93,7 +96,7 @@ $pageTitle = "Détails du travail - Dex";
     </footer>
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/api.js"></script>
+    <script src="js/api.js?v=2"></script>
     <script src="js/assignment.js"></script>
 </body>
 </html>

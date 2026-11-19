@@ -2,12 +2,15 @@
 
 Application web développée dans le cadre du cours **Web 2 (420-248-AH)**. Dex permet aux étudiants de consulter leurs travaux et les créneaux disponibles, et aux enseignants de gérer les travaux ainsi que les disponibilités associées.
 
-## Aperçu
+## Aperçu de l'application
 
-![Page d'accueil de Dex](images/EspaceEtudiant.png)
-![Page connexion de Dex](images/EspaceEnseignant.png)
+### Espace étudiant
 
-> Ajouter une capture d'écran de la page d'accueil dans `screenshots/homepage.png` pour afficher l'aperçu sur GitHub.
+![Espace étudiant Dex](site/images/EsaceEtudiant.png)
+
+### Espace enseignant
+
+![Espace enseignant Dex](site/images/EspaceEnseignant.png)
 
 ## Fonctionnalités
 

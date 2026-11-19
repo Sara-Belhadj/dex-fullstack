@@ -1,94 +1,100 @@
-# Dex — Gestion des travaux et des disponibilités
+# Dex — Assignment and Availability Management
 
-Application web développée dans le cadre du cours **Web 2 (420-248-AH)**. Dex permet aux étudiants de consulter leurs travaux et les créneaux disponibles, et aux enseignants de gérer les travaux ainsi que les disponibilités associées.
+A full-stack web application developed as part of the **Web 2 (420-248-AH)** course.
 
-## Aperçu de l'application
+Dex allows students to browse their courses, view assignments, and register for available time slots. Teachers can manage assignments, organize availability, and monitor student registrations through a dedicated dashboard.
 
-### Espace étudiant
+## Application Preview
 
-![Espace étudiant Dex](site/images/EsaceEtudiant.png)
+### Student Dashboard
 
-### Espace enseignant
+![Dex Student Dashboard](site/preview/EspaceEtudiant.png)
 
-![Espace enseignant Dex](site/images/EspaceEnseignant.png)
+### Teacher Dashboard
 
-## Fonctionnalités
+![Dex Teacher Dashboard](site/preview/EspaceEnseignant.png)
 
-### Espace étudiant
-- Consultation des cours et des travaux.
-- Affichage des informations et des échéances des travaux.
-- Consultation des créneaux de disponibilité associés aux travaux.
-- Inscription à un créneau lorsqu'il est disponible.
+## Features
 
-### Espace enseignant
-- Connexion et déconnexion.
-- Consultation des travaux dans un tableau de bord.
-- Modification des informations d'un travail.
-- Ajout, modification et suppression de créneaux horaires.
-- Consultation du nombre d'étudiants inscrits à un créneau.
+### Student Portal
+- Browse courses and assignments.
+- View assignment details and deadlines.
+- Explore available time slots for each assignment.
+- Register for available time slots.
 
-### Interface
-- Interface responsive, claire et minimaliste.
-- Navigation entre l'accueil, les travaux et l'administration.
-- Défilement fluide avec Lenis.
+### Teacher Portal
+- Login and logout.
+- View and manage assignments through a dashboard.
+- Edit assignment information.
+- Create, update, and delete time slots.
+- View the number of students registered for each time slot.
 
-## Technologies utilisées
+### User Interface
+- Clean, modern, minimalist, and responsive design.
+- Navigation between the homepage, assignments, and administration.
+- Smooth scrolling powered by Lenis.
 
-| Partie | Technologies |
+## Tech Stack
+
+| Category | Technologies |
 | --- | --- |
 | Frontend | HTML, CSS, JavaScript, PHP, Vue 3 |
 | Backend | Node.js, Express |
-| Base de données | MySQL |
-| Authentification | bcrypt |
-| Environnement local | XAMPP, npm |
-| Défilement | Lenis |
+| Database | MySQL |
+| Authentication | bcrypt |
+| Local Development | XAMPP, npm |
+| Smooth Scrolling | Lenis |
 
-## Structure du projet
+## Project Structure
 
 ```text
 dex-fullstack/
-├── api/                 # Serveur Express et accès à MySQL
-├── site/                # Pages PHP, CSS, JavaScript et images
-│   ├── css/
-│   ├── js/
-│   ├── images/
-│   ├── index.php        # Accueil étudiant
-│   ├── travail.php      # Détails d'un travail
-│   └── admin.php        # Espace enseignant
-├── screenshots/         # Captures d'écran pour la documentation
-│   └── homepage.png
-├── init.sql             # Initialisation de la base de données
+├── api/                  # Express server and MySQL integration
+├── site/                 # Frontend application
+│   ├── css/              # Stylesheets
+│   ├── js/               # JavaScript files
+│   ├── images/           # Application assets
+│   ├── preview/          # Application screenshots
+│   │   ├── EspaceEtudiant.png
+│   │   └── EspaceEnseignant.png
+│   ├── index.php         # Student homepage
+│   ├── travail.php       # Assignment details
+│   └── admin.php         # Teacher dashboard
+├── init.sql              # Database initialization
 └── README.md
 ```
 
-> Le dossier `screenshots/` et son image sont à créer si ce n'est pas déjà fait.
+## Getting Started
 
-## Installation locale
+### Prerequisites
+- Node.js and npm
+- XAMPP (Apache and MySQL)
+- A modern web browser
+- Git
 
-### Prérequis
-- Node.js et npm
-- XAMPP (Apache et MySQL)
-- Un navigateur web
-
-### 1. Récupérer le projet
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Sara-Belhadj/dex-fullstack.git
 cd dex-fullstack
 ```
 
-Pour utiliser les URL locales indiquées ci-dessous, placer le dossier du projet dans `C:\xampp\htdocs\`.
+For the local URLs below to work, place the project inside your XAMPP `htdocs` directory:
 
-### 2. Préparer la base de données
+```text
+C:\xampp\htdocs\dex-fullstack
+```
 
-1. Démarrer **Apache** et **MySQL** dans XAMPP.
-2. Ouvrir phpMyAdmin : `http://localhost/phpmyadmin`.
-3. Créer la base de données `DexAppBD`.
-4. Importer le fichier `init.sql`.
+### 2. Set Up the Database
 
-### 3. Configurer le backend
+1. Start **Apache** and **MySQL** using XAMPP.
+2. Open phpMyAdmin at `http://localhost/phpmyadmin`.
+3. Create a database named `DexAppBD`.
+4. Import the `init.sql` file.
 
-Dans le dossier `api/`, créer un fichier `.env` adapté à votre environnement local :
+### 3. Configure the Backend
+
+Inside the `api/` directory, create a `.env` file:
 
 ```dotenv
 DB_HOST=localhost
@@ -98,9 +104,11 @@ DB_NAME=DexAppBD
 PORT=3000
 ```
 
-> Ces valeurs sont des exemples pour un environnement XAMPP local. Ne pas publier de véritables mots de passe ou le fichier `.env` sur GitHub.
+> These settings are intended for local development. Never commit real passwords, credentials, or your `.env` file to GitHub.
 
-### 4. Démarrer l'API
+### 4. Start the API
+
+Open a terminal and run:
 
 ```bash
 cd api
@@ -108,42 +116,46 @@ npm install
 npm run dev
 ```
 
-L'API est configurée pour fonctionner localement sur `http://localhost:3000`.
+The backend should be available at `http://localhost:3000`.
 
-### 5. Ouvrir l'application
+### 5. Run the Application
 
-Avec Apache et MySQL démarrés, accéder à :
+With Apache, MySQL, and the API running, open:
 
-- **Espace étudiant :** `http://localhost/dex-fullstack/site/index.php`
-- **Espace enseignant :** `http://localhost/dex-fullstack/site/admin.php`
+**Student Portal:** `http://localhost/dex-fullstack/site/index.php`
 
-Vérifier que l'URL de l'API définie dans `site/js/config.js` correspond à votre environnement.
+**Teacher Portal:** `http://localhost/dex-fullstack/site/admin.php`
 
-## API
+Make sure the API URL configured in `site/js/config.js` matches your local environment.
 
-Le backend expose notamment les routes suivantes :
+## API Endpoints
 
-| Méthode | Route | Rôle |
+The backend provides REST API endpoints for managing courses, assignments, authentication, and availability.
+
+| Method | Endpoint | Description |
 | --- | --- | --- |
-| GET | `/api` | Vérifier l'état de l'API |
-| GET | `/api/cours` | Récupérer les cours |
-| GET | `/api/travaux` | Récupérer les travaux |
-| GET | `/api/travaux/:id/disponibilites` | Consulter les disponibilités d'un travail |
-| POST | `/api/connexion` | Connecter un enseignant |
-| POST | `/api/deconnexion` | Déconnecter un utilisateur |
+| GET | `/api` | Check API status |
+| GET | `/api/cours` | Retrieve all courses |
+| GET | `/api/travaux` | Retrieve assignments |
+| GET | `/api/travaux/:id/disponibilites` | Retrieve available time slots |
+| POST | `/api/connexion` | Authenticate a teacher |
+| POST | `/api/deconnexion` | Log out a user |
 
-D'autres routes permettent de gérer les travaux et les créneaux depuis l'administration.
+Additional endpoints support assignment management and time slot creation, modification, and deletion.
 
-## Captures d'écran
+## Project Background
 
-### Page d'accueil
+Dex is an academic full-stack development project created to apply concepts learned in the Web 2 course, including:
 
-![Accueil étudiant](screenshots/homepage.png)
+- Client-server communication
+- RESTful API development
+- MySQL database integration
+- Authentication and session management
+- Dynamic user interfaces with Vue.js
+- Frontend and backend integration
 
-## Contexte
+## Author
 
-Projet scolaire fullstack réalisé pour mettre en pratique la communication client-serveur, les API REST, la gestion des données MySQL et les interfaces web interactives.
+**Sara Belhadj**
 
-## Auteur
-
-[Sara Belhadj](https://github.com/Sara-Belhadj)
+[GitHub Profile](https://github.com/Sara-Belhadj)

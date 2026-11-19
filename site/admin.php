@@ -73,20 +73,13 @@ $pageTitle = "Administration - Dex";
 
                     <h2>Bonjour, {{ nomEnseignant }}</h2>
                     <p>Gérez vos travaux et leurs disponibilités.</p>
+                    <button type="button" class="logout-button" @click="deconnexion">Se déconnecter</button>
                 </div>
 
-                <p v-if="chargementTravaux">
-                    Chargement des travaux...
-                </p>
+                <p v-if="chargementTravaux">Chargement des travaux...</p>
 
-                <p v-else-if="erreurTravaux" class="form-error">
-                    {{ erreurTravaux }}
-                </p>
-
-                <div v-else-if="travaux.length === 0" class="admin-empty">
-                    Aucun travail à afficher.
-                </div>
-
+                <p v-else-if="erreurTravaux" class="form-error">{{ erreurTravaux }}</p>
+                <div v-else-if="travaux.length === 0" class="admin-empty">Aucun travail à afficher.</div>
                 <div v-else class="admin-works-grid">
 
                     <article v-for="travail in travaux" :key="travail.id" class="admin-work-card">
@@ -95,10 +88,8 @@ $pageTitle = "Administration - Dex";
                         <p>{{ travail.description }}</p>
                         <span class="admin-work-status">{{ travail.ouvert ? "Ouvert" : "Fermé" }}</span>
                     </article>
-
                 </div>
             </section>
-
         </div>
     </main>
 

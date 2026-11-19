@@ -90,6 +90,35 @@ createApp({
             } finally {
                 this.chargementTravaux = false;
             }
+        },
+
+        async deconnexion() {
+            const token = sessionStorage.getItem("dexToken");
+            try {
+                const response = await fetch(`${API_BASE_URL}/deconnexion`, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok && response.status !== 401) {
+                    throw new Error("Déconnexion impossible.");
+                }
+            } catch (error) {
+                console.error("Erreur de déconnexion :", error);
+            } finally {
+                sessionStorage.removeItem("dexToken");
+                sessionStorage.removeItem("dexNom");
+
+                this.connecte = false;
+                this.nomEnseignant = "";
+                this.identifiant = "";
+                this.motDePasse = "";
+                this.travaux = [];
+                this.erreur = "";
+                this.erreurTravaux = "";
+            }
         }
     },
 

@@ -24,7 +24,15 @@ createApp({
             },
             modificationEnCours: false,
             erreurModification: "",
-            succesModification: ""
+            succesModification: "",
+            succesModification: "",
+            nouveauCreneau: {
+                debut: "",
+                fin: ""
+            },
+            ajoutCreneauEnCours: false,
+            erreurCreneau: "",
+            succesCreneau: ""
         };
     },
 
@@ -190,6 +198,53 @@ createApp({
                 this.erreurModification = error.message;
             } finally {
                 this.modificationEnCours = false;
+            }
+        },
+
+        async ajouterCreneau() {
+            this.erreurCreneau = "";
+            this.succesCreneau = "";
+
+            const { debut, fin } = this.nouveauCreneau;
+
+            if (new Date(fin) <= new Date(debut)) {
+                this.erreurCreneau = "La fin doit être après le début.";
+                return;
+            }
+            this.ajoutCreneauEnCours = true;
+            try {
+                const token = sessionStorage.getItem("dexToken");
+                const response = await fetch(
+                    `${API_BASE_URL}/travaux/${encodeURIComponent(this.travailSelectionne)}/creneaux`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            debut: debut.replace("T", " ") + ":00",
+                            fin: fin.replace("T", " ") + ":00"
+                        })
+                    }
+                );
+                const resultat = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        resultat.erreurs?.[0] ||
+                        resultat.message ||
+                        "Impossible d'ajouter le créneau."
+                    );
+                }
+
+                this.nouveauCreneau = { debut: "", fin: "" };
+                this.succesCreneau = "Créneau ajouté avec succès.";
+
+            } catch (error) {
+                this.erreurCreneau = error.message;
+            } finally {
+                this.ajoutCreneauEnCours = false;
             }
         }
 

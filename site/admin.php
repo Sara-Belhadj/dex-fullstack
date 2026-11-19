@@ -90,7 +90,6 @@ $pageTitle = "Administration - Dex";
                 </div>
                 <section v-if="travailSelectionne" class="admin-edit-section">
                     <h3>Modifier le travail</h3>
-
                     <form @submit.prevent="modifierTravail">
                         <div class="form-group">
                             <label for="edit-titre">Titre</label>
@@ -122,6 +121,25 @@ $pageTitle = "Administration - Dex";
                         <button type="submit" class="login-submit" :disabled="modificationEnCours">{{ modificationEnCours ? "Enregistrement..." : "Enregistrer les modifications" }}</button>
                         <p v-if="erreurModification" class="form-error">{{ erreurModification }}</p>
                         <p v-if="succesModification" class="form-success">{{ succesModification }}</p>
+                    </form>
+                </section>
+                <section v-if="travailSelectionne" class="admin-slots-section">
+                    <h3>Ajouter un créneau horaire</h3>
+
+                    <form @submit.prevent="ajouterCreneau">
+                        <div class="form-group">
+                            <label for="creneau-debut">Début du créneau</label>
+                            <input id="creneau-debut" type="datetime-local" v-model="nouveauCreneau.debut" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="creneau-fin">Fin du créneau</label>
+                            <input id="creneau-fin" type="datetime-local" v-model="nouveauCreneau.fin" required>
+                        </div>
+
+                        <button type="submit" class="login-submit" :disabled="ajoutCreneauEnCours">{{ ajoutCreneauEnCours ? "Ajout..." : "Ajouter le créneau" }}</button>
+                        <p v-if="erreurCreneau" class="form-error">{{ erreurCreneau }}</p>
+                        <p v-if="succesCreneau" class="form-success">{{ succesCreneau }}</p>
                     </form>
                 </section>
             </section>

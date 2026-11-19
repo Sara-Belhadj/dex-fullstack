@@ -50,6 +50,9 @@ createApp({
 
     methods: {
         async connexion() {
+            await Vue.nextTick();
+            window.lenis?.resize();
+            
             this.erreur = "";
             this.chargement = true;
 
@@ -377,7 +380,7 @@ createApp({
                 this.modificationCreneauEnCours = false;
             }
         },
-        
+
         async supprimerCreneau(creneau) {
             const confirmation = window.confirm(
                 `Voulez-vous vraiment supprimer ce créneau ?\n\n` +

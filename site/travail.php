@@ -17,6 +17,8 @@ $pageTitle = "Détails du travail - Dex";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle) ?></title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.17/dist/lenis.min.js"></script>
+</head>
 </head>
 <body>
 
@@ -95,6 +97,7 @@ $pageTitle = "Détails du travail - Dex";
         <p>Dex - Gestion des disponibilités</p>
     </footer>
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="js/smooth-scroll.js"></script>
     <script src="js/config.js"></script>
     <script src="js/api.js?v=2"></script>
     <script src="js/assignment.js"></script>

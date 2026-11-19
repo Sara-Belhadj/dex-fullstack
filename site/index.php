@@ -11,7 +11,6 @@ $pageTitle = "Accueil - Dex";
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.17/dist/lenis.min.js"></script>
-<script src="js/smooth-scroll.js"></script>
 </head>
 <body>
 
@@ -87,6 +86,7 @@ $pageTitle = "Accueil - Dex";
         <p>Dex - Gestion des disponibilités</p>
     </footer>
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="js/smooth-scroll.js"></script>
     <script src="js/config.js"></script>
     <script src="js/api.js"></script>
     <script src="js/app.js"></script>

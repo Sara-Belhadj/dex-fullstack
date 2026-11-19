@@ -100,7 +100,7 @@ $pageTitle = "Administration - Dex";
 
                         <label class="admin-open-option">
                             <input type="checkbox" v-model="formulaireTravail.ouvert">Travail ouvert aux étudiants</label>
-                        <button type="submit" class="login-submit" :disabled="modificationEnCours">{{ modificationEnCours ? "Enregistrement..." : "Enregistrer les modifications" }}</button>
+                        <button type="submit" class="login-submit" :disabled="modificationCreneauEnCours">{{ modificationCreneauEnCours ? "Enregistrement..." : "Enregistrer les modifications" }}</button>
                         <p v-if="erreurModification" class="form-error">{{ erreurModification }}</p>
                         <p v-if="succesModification" class="form-success">{{ succesModification }}</p>
                     </form>
@@ -155,7 +155,7 @@ $pageTitle = "Administration - Dex";
                             <input id="modifier-creneau-fin" type="datetime-local" v-model="formulaireCreneau.fin" required>
                         </div>
 
-                        <button type="submit" class="login-submit" :disabled="true">Enregistrer les modifications</button>
+                        <button type="submit" class="login-submit" :disabled="modificationCreneauEnCours">{{ modificationCreneauEnCours ? "Enregistrement..." : "Enregistrer les modifications" }}</button>
                         <p v-if="erreurModificationCreneau" class="form-error">{{ erreurModificationCreneau }}</p>
                         <p v-if="succesModificationCreneau" class="form-success">{{ succesModificationCreneau }}</p>
                     </form>

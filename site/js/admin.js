@@ -321,6 +321,59 @@ createApp({
 
             this.erreurModificationCreneau = "";
             this.succesModificationCreneau = "";
+        },
+
+        async modifierCreneau() {
+            this.erreurModificationCreneau = "";
+            this.succesModificationCreneau = "";
+
+            const { debut, fin } = this.formulaireCreneau;
+
+            if (!debut || !fin || new Date(fin) <= new Date(debut)) {
+                this.erreurModificationCreneau = "La date de fin doit être après la date de début.";
+                return;
+            }
+
+            this.modificationCreneauEnCours = true;
+
+            try {
+                const token = sessionStorage.getItem("dexToken");
+
+                const response = await fetch(
+                    `${API_BASE_URL}/creneaux/${encodeURIComponent(this.creneauSelectionne)}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            debut: debut.replace("T", " ") + ":00",
+                            fin: fin.replace("T", " ") + ":00"
+                        })
+                    }
+                );
+                const resultat = await response.json();
+                if (!response.ok) {
+                    throw new Error(
+                        resultat.erreurs?.[0] ||
+                        resultat.message ||
+                        "Impossible de modifier le créneau."
+                    );
+                }
+
+                await this.chargerCreneaux();
+
+                if (this.erreurListeCreneaux) {
+                    throw new Error("Créneau modifié, mais impossible d'actualiser la liste.");
+                }
+                this.succesModificationCreneau = "Créneau modifié avec succès.";
+
+            } catch (error) {
+                this.erreurModificationCreneau = error.message;
+            } finally {
+                this.modificationCreneauEnCours = false;
+            }
         }
 
     },

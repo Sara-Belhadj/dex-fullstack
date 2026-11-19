@@ -6,7 +6,7 @@ Application web développée dans le cadre du cours **Web 2 (420-248-AH)**. Dex 
 
 ### Espace étudiant
 
-![Espace étudiant Dex](site/preview/EsaceEtudiant.png)
+![Espace étudiant Dex](site/preview/EspaceEtudiant.png)
 
 ### Espace enseignant
 

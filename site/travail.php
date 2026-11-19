@@ -19,7 +19,6 @@ $pageTitle = "Détails du travail - Dex";
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.17/dist/lenis.min.js"></script>
 </head>
-</head>
 <body>
 
     <header>

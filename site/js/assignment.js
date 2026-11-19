@@ -1,3 +1,4 @@
+
 const { createApp } = Vue;
 
 createApp({
@@ -26,7 +27,7 @@ createApp({
                 return;
             }
 
-            if (!this.nom.trim() || this.nom.length > 100) {
+            if (!this.nom.trim() || this.nom.trim().length > 100) {
                 this.messageErreur = "Veuillez entrer un nom valide.";
                 return;
             }
@@ -44,6 +45,26 @@ createApp({
                 );
 
                 this.creneaux = await getDisponibilites(id);
+
+                    console.log("Après enregistrement :", {
+                        matricule: this.matricule,
+                        nom: this.nom,
+                        creneauxSelectionnes: this.creneauxSelectionnes,
+                        creneaux: this.creneaux
+                    });
+
+                    this.messageSucces = "Vos disponibilités ont été enregistrées avec succès.";
+
+                // Save student information after successful registration
+                localStorage.setItem("dex_matricule", this.matricule.trim());
+                localStorage.setItem("dex_nom", this.nom.trim());
+
+                // Remember selected slots for this assignment
+                localStorage.setItem(
+                    `dex_creneaux_${id}_${this.matricule.trim()}`,
+                    JSON.stringify(this.creneauxSelectionnes)
+                );
+
                 this.messageSucces = "Vos disponibilités ont été enregistrées avec succès.";
 
             } catch (error) {
@@ -52,7 +73,35 @@ createApp({
             } finally {
                 this.enregistrement = false;
             }
-        },  
+        },
+
+        restaurerDisponibilites(id) {
+            const matricule = localStorage.getItem("dex_matricule");
+            const nom = localStorage.getItem("dex_nom");
+
+            if (!matricule || !nom) {
+                return;
+            }
+
+            this.matricule = matricule;
+            this.nom = nom;
+
+            const sauvegarde = localStorage.getItem(
+                `dex_creneaux_${id}_${matricule}`
+            );
+
+            if (sauvegarde) {
+                try {
+                    const selection = JSON.parse(sauvegarde);
+
+                    if (Array.isArray(selection)) {
+                        this.creneauxSelectionnes = selection;
+                    }
+                } catch (error) {
+                    console.error("Impossible de restaurer les créneaux.", error);
+                }
+            }
+        },
 
         formaterDate(date) {
             return new Intl.DateTimeFormat("fr-CA", {
@@ -84,6 +133,10 @@ createApp({
 
             this.travail = travail;
             this.creneaux = creneaux;
+
+            // Restore saved student information and selections
+            this.restaurerDisponibilites(id);
+
         } catch (error) {
             this.erreur = "Impossible de charger ce travail.";
             console.error(error);

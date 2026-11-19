@@ -6,7 +6,11 @@ createApp({
             travail: {},
             creneaux: [],
             chargement: true,
-            erreur: ""
+            erreur: "",
+
+            matricule: "",
+            nom: "",
+            creneauxSelectionnes: []
         };
     },
 

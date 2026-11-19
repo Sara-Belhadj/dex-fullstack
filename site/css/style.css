@@ -582,3 +582,35 @@ footer {
     outline: 2px solid #a88b80;
     outline-offset: 2px;
 }
+
+.availability-selection {
+    margin-top: 30px;
+}
+
+.availability-selection h4 {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.availability-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #e7e7e9;
+    border-radius: 12px;
+    background: #f7f7f7;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.availability-option:hover {
+    background: #eeeeee;
+}
+
+.availability-option input {
+    width: 18px;
+    height: 18px;
+    accent-color: #84645c;
+}

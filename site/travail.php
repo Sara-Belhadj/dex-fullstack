@@ -67,12 +67,20 @@ $pageTitle = "Détails du travail - Dex";
 
                     <div class="form-group">
                         <label for="matricule">Matricule</label>
-                        <input id="matricule" type="text" placeholder="Votre matricule" maxlength="20"  autocomplete="off">
+                        <input id="matricule" type="text" v-model="matricule" placeholder="Votre matricule" maxlength="20"  autocomplete="off">
                     </div>
 
                     <div class="form-group">
                         <label for="nom">Nom complet</label>
-                        <input id="nom" type="text" placeholder="Votre nom complet" maxlength="100" autocomplete="name">
+                        <input id="nom" type="text" v-model="nom" placeholder="Votre nom complet" maxlength="100" autocomplete="name">
+                    </div>
+
+                    <div class="availability-selection">
+                        <h4>Sélectionnez vos disponibilités</h4>
+                        <label v-for="creneau in creneaux" :key="creneau.id" class="availability-option">
+                        <input type="checkbox" :value="creneau.id" v-model="creneauxSelectionnes">
+                            <span>{{ formaterDate(creneau.debut) }} — {{ formaterHeure(creneau.debut) }} à {{ formaterHeure(creneau.fin) }}</span>
+                        </label>
                     </div>
                 </div>
             </section>

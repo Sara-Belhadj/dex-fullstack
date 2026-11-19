@@ -12,10 +12,12 @@ $pageTitle = "Administration - Dex";
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <script src="js/smooth-scroll.js"></script>
 </head>
 
 <body class="admin-page">
-    <div class="hero-wrapper admin-hero-wrapper">
+    <div id="app">
+        <div class="hero-wrapper admin-hero-wrapper">
         <header>
             <h1>Dex</h1>
             <nav>
@@ -32,10 +34,12 @@ $pageTitle = "Administration - Dex";
                     <p>Gérez vos travaux et les disponibilités de vos étudiants.</p>
                 </div>
             </section>
-            <div id="app">
+            </main>
 
+            <!-- Connexion sur la bibliothèque -->
+            <div v-if="!connecte" class="admin-login-area">
             <!-- Formulaire de connexion -->
-            <form v-if="!connecte" class="login-form" @submit.prevent="connexion">
+            <form class="login-form" @submit.prevent="connexion">
                 <h3>Connexion enseignant</h3>
                 <p>Accédez à votre espace de gestion.</p>
 
@@ -53,8 +57,12 @@ $pageTitle = "Administration - Dex";
                 <p v-if="erreur" class="form-error">{{ erreur }}</p>
             </form>
 
-            <!-- Tableau de bord enseignant -->
-            <section v-else class="admin-dashboard">
+            </div> <!-- Fin de .admin-login-area -->
+            </div> <!-- Fin de .hero-wrapper -->
+
+            <!-- Tableau de bord sur fond blanc -->
+            <main v-if="connecte" class="admin-content" id="admin-content">
+                <section class="admin-dashboard">
                 <div class="admin-heading">
                     <span class="admin-label">ESPACE ENSEIGNANT</span>
                     <h2>Bonjour, {{ nomEnseignant }}</h2>
@@ -168,9 +176,8 @@ $pageTitle = "Administration - Dex";
                     </form>
                 </section>
             </section>
-        </div>
-    </main>
-</div> <!-- Fin de .hero-wrapper -->
+        </main>
+    </div> <!-- Fin de #app -->
 
 <footer>
     <p>Dex - Gestion des disponibilités</p>

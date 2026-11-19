@@ -838,9 +838,11 @@ body.admin-page {
 
 /* Même arrière-plan que l'espace étudiant */
 body.admin-page .admin-hero-wrapper {
-    min-height: 100vh;
-    height: auto;
+    height: 100vh;
+    min-height: 700px;
     padding: 0 40px;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -896,12 +898,7 @@ body.admin-page .admin-hero p {
 
 /* Formulaire placé sous le titre */
 body.admin-page #app {
-    position: relative;
-    z-index: 1;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 10px 24px 40px;
 }
 
 body.admin-page .login-form {
@@ -943,10 +940,12 @@ body.admin-page .login-form .login-submit {
 
 /* Tableau de bord après connexion */
 body.admin-page .admin-dashboard {
+    width: 100%;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 32px;
-    background: white;
-    border-radius: 24px;
+    padding: 50px 24px 80px;
+    background: transparent;
+    border-radius: 0;
 }
 
 /* Adaptation mobile */
@@ -982,4 +981,44 @@ body.admin-page > footer p {
     margin: 0;
     color: #777777;
     font-size: 13px;
+}
+
+/* Formulaire de connexion sur la bannière */
+body.admin-page .admin-login-area {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 10px 20px 40px;
+}
+
+/* Contenu enseignant sur fond blanc */
+body.admin-page .admin-content {
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    padding: 45px 24px 80px;
+    background: #ffffff;
+}
+
+/* Dégradé au-dessus du contenu */
+body.admin-page .admin-hero-wrapper::after {
+    z-index: 0;
+}
+
+/* Adaptation mobile */
+@media (max-width: 600px) {
+    body.admin-page .admin-hero-wrapper {
+        height: auto;
+        min-height: 100vh;
+        padding: 0 16px 40px;
+    }
+
+    body.admin-page .admin-content {
+        padding: 30px 16px 60px;
+    }
+
+    body.admin-page .admin-dashboard {
+        padding: 20px 0 50px;
+    }
 }

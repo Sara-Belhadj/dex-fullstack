@@ -9,6 +9,7 @@ $pageTitle = "Administration - Dex";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
@@ -25,13 +26,35 @@ $pageTitle = "Administration - Dex";
         <p>Connectez-vous pour gérer vos travaux et vos créneaux.</p>
 
         <div id="app">
-            <!-- Vue.js affichera le formulaire de connexion ici -->
+            <div id="app">
+                <form class="login-form" @submit.prevent="connexion">
+                    <h3>Connexion enseignant</h3>
+                    <p>Accédez à votre espace de gestion.</p>
+
+                    <div class="form-group">
+                        <label for="identifiant">Identifiant</label>
+                        <input id="identifiant" type="text" v-model="identifiant" placeholder="Votre identifiant" autocomplete="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="motDePasse">Mot de passe</label>
+                        <input id="motDePasse" type="password" v-model="motDePasse" placeholder="Votre mot de passe" autocomplete="current-password" required>
+                    </div>
+
+                    <button type="submit" class="login-submit" :disabled="chargement">{{ chargement ? "Connexion..." : "Se connecter" }}</button>
+                    <p v-if="erreur" class="form-error">{{ erreur }}</p>
+                </form>
+            </div>
         </div>
     </main>
 
     <footer>
         <p>Dex - Gestion des disponibilités</p>
     </footer>
-
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>

@@ -646,3 +646,46 @@ footer {
     margin-top: 16px;
     color: #c0392b;
 }
+
+.login-form {
+    width: 100%;
+    max-width: 440px;
+    margin: 48px auto;
+    padding: 36px;
+    background: #fff;
+    border: 1px solid #ededed;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+.login-form h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.login-form > p {
+    color: #777;
+    margin-bottom: 28px;
+}
+
+.login-submit {
+    width: 100%;
+    padding: 15px;
+    margin-top: 8px;
+    background: #171717;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-submit:hover {
+    background: #383838;
+}
+
+.login-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

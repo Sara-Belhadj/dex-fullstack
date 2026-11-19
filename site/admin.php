@@ -11,23 +11,28 @@ $pageTitle = "Administration - Dex";
 
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 
-<body>
-    <header>
-        <h1>Dex</h1>
+<body class="admin-page">
+    <div class="hero-wrapper admin-hero-wrapper">
+        <header>
+            <h1>Dex</h1>
+            <nav>
+                <a href="index.php">Accueil</a>
+                <a href="admin.php">Administration</a>
+            </nav>
+        </header>
 
-        <nav>
-            <a href="index.php">Accueil</a>
-            <a href="admin.php">Administration</a>
-        </nav>
-    </header>
-
-    <main>
-        <h2>Espace enseignant</h2>
-        <p>Connectez-vous pour gérer vos travaux et vos créneaux.</p>
-
-        <div id="app">
+        <main class="admin-main">
+            <section class="admin-hero">
+                <div class="admin-hero-content">
+                    <span class="admin-hero-badge">ESPACE ENSEIGNANT</span>
+                    <h1>Bienvenue dans votre espace enseignant.</h1>
+                    <p>Gérez vos travaux et les disponibilités de vos étudiants.</p>
+                </div>
+            </section>
+            <div id="app">
 
             <!-- Formulaire de connexion -->
             <form v-if="!connecte" class="login-form" @submit.prevent="connexion">
@@ -165,12 +170,13 @@ $pageTitle = "Administration - Dex";
             </section>
         </div>
     </main>
+</div> <!-- Fin de .hero-wrapper -->
 
-    <footer>
-        <p>Dex - Gestion des disponibilités</p>
-    </footer>
+<footer>
+    <p>Dex - Gestion des disponibilités</p>
+</footer>
 
-    <!-- Scripts -->
+<!-- Scripts -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <script src="js/config.js"></script>
     <script src="js/api.js"></script>

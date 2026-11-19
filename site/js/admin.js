@@ -42,7 +42,9 @@ createApp({
             },
             modificationCreneauEnCours: false,
             erreurModificationCreneau: "",
-            succesModificationCreneau: ""
+            succesModificationCreneau: "",
+            suppressionCreneauEnCours: false,
+            erreurSuppressionCreneau: ""
         };
     },
 
@@ -373,6 +375,72 @@ createApp({
                 this.erreurModificationCreneau = error.message;
             } finally {
                 this.modificationCreneauEnCours = false;
+            }
+        },
+        
+        async supprimerCreneau(creneau) {
+            const confirmation = window.confirm(
+                `Voulez-vous vraiment supprimer ce créneau ?\n\n` +
+                `Début : ${this.formaterDate(creneau.debut)}\n` +
+                `Fin : ${this.formaterDate(creneau.fin)}\n` +
+                `Étudiants inscrits : ${creneau.nombre}`
+            );
+
+            if (!confirmation) return;
+
+            this.suppressionCreneauEnCours = true;
+            this.erreurSuppressionCreneau = "";
+
+            try {
+                const token = sessionStorage.getItem("dexToken");
+
+                const envoyerSuppression = async (confirmer = false) => {
+                    return fetch(
+                        `${API_BASE_URL}/creneaux/${encodeURIComponent(creneau.id)}`,
+                        {
+                            method: "DELETE",
+                            headers: {
+                                "Authorization": `Bearer ${token}`,
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ confirmer })
+                        }
+                    );
+                };
+
+                let response = await envoyerSuppression();
+
+                if (response.status === 409) {
+                    const confirmationInscrits = window.confirm(
+                        `Attention : ce créneau contient ${creneau.nombre} étudiant(s) inscrit(s).\n\n` +
+                        "Confirmez-vous sa suppression malgré les inscriptions ?"
+                    );
+
+                    if (!confirmationInscrits) return;
+
+                    response = await envoyerSuppression(true);
+                }
+
+                if (!response.ok) {
+                    const resultat = await response.json().catch(() => ({}));
+
+                    throw new Error(
+                        resultat.erreurs?.[0] ||
+                        resultat.message ||
+                        "Impossible de supprimer le créneau."
+                    );
+                }
+
+                if (this.creneauSelectionne === creneau.id) {
+                    this.creneauSelectionne = null;
+                }
+
+                await this.chargerCreneaux();
+
+            } catch (error) {
+                this.erreurSuppressionCreneau = error.message;
+            } finally {
+                this.suppressionCreneauEnCours = false;
             }
         }
 

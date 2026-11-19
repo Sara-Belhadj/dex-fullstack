@@ -126,6 +126,7 @@ $pageTitle = "Administration - Dex";
                 </section>
                 <section v-if="travailSelectionne" class="admin-slots-section">
                     <h3>Créneaux existants</h3>
+                    <p v-if="erreurSuppressionCreneau" class="form-error">{{ erreurSuppressionCreneau }}</p>
                     <p v-if="chargementCreneaux">Chargement des créneaux...</p>
                     <p v-else-if="erreurListeCreneaux" class="form-error">{{ erreurListeCreneaux }}</p>
                     <p v-else-if="creneaux.length === 0">Aucun créneau pour ce travail.</p>
@@ -136,6 +137,7 @@ $pageTitle = "Administration - Dex";
                             <p><strong>Fin :</strong> {{ formaterDate(creneau.fin) }}</p>
                             <p><strong>Étudiants inscrits :</strong> {{ creneau.nombre }}</p>
                             <button type="button" class="admin-edit-button" @click="selectionnerCreneau(creneau)">Modifier le créneau</button>
+                            <button type="button" class="admin-delete-button" :disabled="suppressionCreneauEnCours" @click="supprimerCreneau(creneau)">Supprimer le créneau</button>
                         </article>
                     </div>
                 </section>

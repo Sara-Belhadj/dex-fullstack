@@ -14,7 +14,6 @@ $pageTitle = "Administration - Dex";
     <link rel="icon" type="image/png" href="images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.17/dist/lenis.min.js"></script>
 </head>
-</head>
 
 <body class="admin-page">
     <div id="app">
@@ -180,9 +179,7 @@ $pageTitle = "Administration - Dex";
         </main>
     </div> <!-- Fin de #app -->
 
-    <footer>
-        <?php require __DIR__ . '/includes/footer.php'; ?>
-    </footer>
+<?php require __DIR__ . '/includes/footer.php'; ?>
 
 <!-- Scripts -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>

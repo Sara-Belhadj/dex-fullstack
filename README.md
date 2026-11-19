@@ -6,11 +6,11 @@ Application web développée dans le cadre du cours **Web 2 (420-248-AH)**. Dex 
 
 ### Espace étudiant
 
-![Espace étudiant Dex](site/images/EsaceEtudiant.png)
+![Espace étudiant Dex](site/preview/EsaceEtudiant.png)
 
 ### Espace enseignant
 
-![Espace enseignant Dex](site/images/EspaceEnseignant.png)
+![Espace enseignant Dex](site/preview/EspaceEnseignant.png)
 
 ## Fonctionnalités
 
@@ -133,12 +133,6 @@ Le backend expose notamment les routes suivantes :
 | POST | `/api/deconnexion` | Déconnecter un utilisateur |
 
 D'autres routes permettent de gérer les travaux et les créneaux depuis l'administration.
-
-## Captures d'écran
-
-### Page d'accueil
-
-![Accueil étudiant](screenshots/homepage.png)
 
 ## Contexte
 

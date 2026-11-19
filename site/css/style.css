@@ -1,3 +1,5 @@
+/* Dex — styles communs et espace étudiant */
+
 :root {
     --background: #ffffff;
     --surface: #ffffff;
@@ -8,7 +10,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
 }
 
 * {
@@ -104,22 +106,14 @@ footer {
     font-size: 13px;
 }
 
-/* Homepage hero */
-
 .hero-wrapper {
     position: relative;
     width: 100%;
     min-height: 100vh;
     margin: 0;
     padding: 0 40px;
-
-    background-image:
-        linear-gradient(
-            rgba(0, 0, 0, 0.25),
-            rgba(0, 0, 0, 0.40)
-        ),
-        url("../images/library-background.jpg");
-
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.40)),
+         url("../images/library-background.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -132,18 +126,16 @@ footer {
     left: 0;
     width: 100%;
     height: 180px;
-
     background: linear-gradient(
         to bottom,
         rgba(255, 255, 255, 0) 0%,
         rgba(255, 255, 255, 0.35) 40%,
         rgba(255, 255, 255, 0.8) 75%,
         #ffffff 100%
-    );
 
+    );
     pointer-events: none;
 }
-
 
 .hero {
     display: flex;
@@ -153,14 +145,11 @@ footer {
     min-height: 520px;
     padding: 80px 40px;
     text-align: center;
-
-    background-image:
-        linear-gradient(
+    background-image: linear-gradient(
             rgba(0, 0, 0, 0.25),
             rgba(0, 0, 0, 0.35)
         ),
         url("../images/library-background.jpg");
-
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -207,15 +196,13 @@ footer {
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 999px;
     background: transparent;
-    transition:
-        background 0.25s ease,
+    transition: background 0.25s ease,
         color 0.25s ease,
         border-color 0.25s ease,
         transform 0.25s ease,
         box-shadow 0.25s ease;
 }
 
-/* Accueil : contour blanc */
 .hero-wrapper nav a:first-child:hover {
     background: #ffffff;
     color: #111111;
@@ -223,7 +210,6 @@ footer {
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Administration : bouton noir */
 .hero-wrapper nav a:last-child {
     background: #080808;
     color: #ffffff;
@@ -247,7 +233,6 @@ footer {
     border-radius: 0;
 }
 
-
 .hero-badge {
     display: inline-block;
     padding: 10px 20px;
@@ -258,7 +243,6 @@ footer {
     font-weight: 700;
     letter-spacing: 0.12em;
 }
-
 
 .hero-title {
     max-width: 850px;
@@ -300,8 +284,6 @@ footer {
     margin: 0;
 }
 
-/* Works section */
-
 .section-label {
     display: inline-block;
     margin-bottom: 14px;
@@ -311,8 +293,6 @@ footer {
     letter-spacing: 0.14em;
 }
 
-/* Cards grid */
-
 .works-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -321,8 +301,6 @@ footer {
     width: 100%;
 }
 
-/* Minimal work cards */
-
 .work-card {
     min-height: 280px;
     background: #f7f7f7;
@@ -330,8 +308,7 @@ footer {
     border-radius: 22px;
     overflow: hidden;
     cursor: pointer;
-    transition:
-        transform 0.3s ease,
+    transition: transform 0.3s ease,
         box-shadow 0.3s ease,
         background 0.3s ease;
 }
@@ -375,8 +352,6 @@ footer {
     font-weight: 600;
 }
 
-/* Hover effect */
-
 .work-card:hover {
     transform: translateY(-7px);
     background: linear-gradient(
@@ -384,11 +359,10 @@ footer {
         #f7f7f7 35%,
         #e9d9d4 70%,
         #b98b80 100%
+
     );
     box-shadow: 0 18px 35px rgba(0, 0, 0, 0.09);
 }
-
-
 
 @media (min-width: 601px) and (max-width: 900px) {
     .works-grid {
@@ -406,7 +380,6 @@ footer {
     main {
         padding: 56px 24px;
     }
-
     header {
         margin: 12px 12px 0;
         padding: 16px;
@@ -424,7 +397,6 @@ footer {
     .works-grid {
         grid-template-columns: 1fr;
     }
-
     .work-card-visual {
         height: 190px;
     }
@@ -433,28 +405,24 @@ footer {
         padding: 50px 20px;
         border-radius: 20px;
     }
-
     .hero-title {
         font-size: clamp(28px, 7vw, 38px);
     }
     .hero-wrapper {
         padding: 0 16px;
     }
-
     .hero-wrapper header {
         padding: 18px 4px;
     }
-
     .hero-wrapper header h1 {
         font-size: 22px;
     }
-
     .hero-wrapper nav {
         gap: 8px;
     }
-
     .hero-wrapper nav a,
-    .hero-wrapper nav a:last-child {
+    
+        .hero-wrapper nav a:last-child {
         padding: 9px 12px;
         font-size: 11px;
     }
@@ -829,24 +797,22 @@ footer {
     opacity: 0.5;
     cursor: not-allowed;
 }
-/* ESPACE ENSEIGNANT */
+
+/* Espace enseignant — règles regroupées */
 
 body.admin-page {
     margin: 0;
     padding: 0;
 }
 
-/* Même arrière-plan que l'espace étudiant */
 body.admin-page .admin-hero-wrapper {
-    height: 100vh;
-    min-height: 700px;
+    height: auto;
+    min-height: 100vh;
     padding: 0 40px;
     display: flex;
     flex-direction: column;
 }
 
-
-/* Contenu principal */
 body.admin-page .admin-main {
     width: 100%;
     max-width: none;
@@ -855,20 +821,21 @@ body.admin-page .admin-main {
     padding: 0;
 }
 
-/* Introduction */
 body.admin-page .admin-hero {
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 0;
     margin: 0;
-    padding: 55px 20px 28px;
+    padding: 75px 20px 30px;
     background: none;
     text-align: center;
+    flex: 0 0 auto;
 }
 
 body.admin-page .admin-hero-content {
-    max-width: 800px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 body.admin-page .admin-hero-badge {
@@ -884,19 +851,19 @@ body.admin-page .admin-hero-badge {
 }
 
 body.admin-page .admin-hero h1 {
-    margin: 0 0 12px;
+    margin: 0 0 16px;
     color: white;
-    font-size: clamp(34px, 4vw, 54px);
+    font-size: clamp(32px, 3.5vw, 52px);
     line-height: 1.15;
 }
 
 body.admin-page .admin-hero p {
     margin: 0;
     color: rgba(255, 255, 255, 0.9);
-    font-size: 15px;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
-/* Formulaire placé sous le titre */
 body.admin-page #app {
     width: 100%;
 }
@@ -904,41 +871,56 @@ body.admin-page #app {
 body.admin-page .login-form {
     position: static;
     width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 42px 46px;
+    max-width: 500px;
+    margin: 0;
+    padding: 38px 42px;
     background: #ffffff;
-    border: 1px solid #ededed;
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 26px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
 }
 
 body.admin-page .login-form h3 {
-    font-size: 30px;
-    margin: 0 0 12px;
+    font-size: 27px;
+    margin: 0 0 10px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
 }
 
 body.admin-page .login-form > p {
     font-size: 16px;
-    margin-bottom: 30px;
+    margin-bottom: 26px;
+    color: #777777;
 }
 
 body.admin-page .login-form .form-group {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 body.admin-page .login-form .form-group input {
     width: 100%;
-    padding: 17px 18px;
-    font-size: 16px;
+    padding: 15px 17px;
+    font-size: 15px;
+    background: #f7f7f8;
+    border: 1px solid #e6e6e8;
+    border-radius: 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 body.admin-page .login-form .login-submit {
-    padding: 18px;
-    font-size: 16px;
+    padding: 17px;
+    font-size: 15px;
+    width: 100%;
+    margin-top: 10px;
+    background: #111111;
+    color: #ffffff;
+    border: none;
+    border-radius: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
-/* Tableau de bord après connexion */
 body.admin-page .admin-dashboard {
     width: 100%;
     max-width: 1100px;
@@ -946,29 +928,6 @@ body.admin-page .admin-dashboard {
     padding: 50px 24px 80px;
     background: transparent;
     border-radius: 0;
-}
-
-/* Adaptation mobile */
-@media (max-width: 600px) {
-    body.admin-page .admin-hero-wrapper {
-        padding: 0 16px;
-    }
-
-    body.admin-page .admin-hero {
-        padding: 30px 16px 20px;
-    }
-
-    body.admin-page #app {
-        padding: 10px 12px 30px;
-    }
-
-    body.admin-page .login-form {
-        padding: 26px 22px;
-    }
-
-    body.admin-page .admin-dashboard {
-        padding: 20px;
-    }
 }
 
 body.admin-page > footer {
@@ -983,15 +942,17 @@ body.admin-page > footer p {
     font-size: 13px;
 }
 
-/* Formulaire de connexion sur la bannière */
 body.admin-page .admin-login-area {
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 10px 20px 40px;
+    padding: 40px 20px 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
-/* Contenu enseignant sur fond blanc */
 body.admin-page .admin-content {
     width: 100%;
     max-width: none;
@@ -1001,24 +962,115 @@ body.admin-page .admin-content {
     background: #ffffff;
 }
 
-/* Dégradé au-dessus du contenu */
 body.admin-page .admin-hero-wrapper::after {
     z-index: 0;
 }
 
-/* Adaptation mobile */
+body.admin-page .logout-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 14px 24px;
+    background: #111111;
+    color: #ffffff;
+    border: 1px solid #111111;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+body.admin-page .logout-button:hover {
+    background: #333333;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+body.admin-page .logout-button:active {
+    transform: translateY(0);
+}
+
+body.admin-page .logout-button:focus-visible {
+    outline: 3px solid #8daeff;
+    outline-offset: 3px;
+}
+
+body.admin-page .login-form .form-group input:focus {
+    outline: none;
+    border-color: #111111;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.07);
+}
+
+body.admin-page .login-form .login-submit:hover {
+    background: #333333;
+    transform: translateY(-2px);
+}
+
+body.admin-page .admin-hero-wrapper:has(.admin-login-area) {
+    justify-content: center;
+    min-height: 100vh;
+}
+
+body.admin-page .admin-login-area .login-form {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 42px 46px;
+    border-radius: 26px;
+}
+
+body.admin-page .admin-hero-wrapper:has(.admin-hero) {
+    justify-content: flex-start;
+}
+
+body.admin-page .admin-hero-wrapper:has(.admin-hero) .admin-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width: 600px) {
     body.admin-page .admin-hero-wrapper {
+        padding: 0 16px 40px;
         height: auto;
         min-height: 100vh;
-        padding: 0 16px 40px;
+    }
+
+    body.admin-page .admin-hero {
+        padding: 55px 12px 25px;
+    }
+
+    body.admin-page #app {
+        padding: 10px 12px 30px;
+    }
+
+    body.admin-page .login-form {
+        padding: 28px 24px;
+    }
+
+    body.admin-page .admin-dashboard {
+        padding: 20px 0 50px;
     }
 
     body.admin-page .admin-content {
         padding: 30px 16px 60px;
     }
 
-    body.admin-page .admin-dashboard {
-        padding: 20px 0 50px;
+    body.admin-page .admin-login-area {
+        padding: 30px 12px 70px;
     }
+
+    body.admin-page .admin-hero h1 {
+        font-size: 32px;
+    }
+
+    body.admin-page .admin-login-area .login-form {
+        padding: 28px 24px;
+    }
+
 }

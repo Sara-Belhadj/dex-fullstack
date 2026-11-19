@@ -12,7 +12,8 @@ $pageTitle = "Administration - Dex";
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <script src="js/smooth-scroll.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.17/dist/lenis.min.js"></script>
+</head>
 </head>
 
 <body class="admin-page">
@@ -27,7 +28,7 @@ $pageTitle = "Administration - Dex";
         </header>
 
         <main class="admin-main">
-            <section class="admin-hero">
+            <section v-if="connecte" class="admin-hero">
                 <div class="admin-hero-content">
                     <span class="admin-hero-badge">ESPACE ENSEIGNANT</span>
                     <h1>Bienvenue dans votre espace enseignant.</h1>
@@ -185,9 +186,9 @@ $pageTitle = "Administration - Dex";
 
 <!-- Scripts -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="js/smooth-scroll.js"></script>
     <script src="js/config.js"></script>
     <script src="js/api.js"></script>
     <script src="js/admin.js"></script>
-
 </body>
 </html>
